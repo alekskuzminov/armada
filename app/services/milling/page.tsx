@@ -143,42 +143,42 @@ export default function MillingPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative">
-        <div className="absolute inset-0">
-          <img
-            src="https://readdy.ai/api/search-image?query=modern-cnc-vertical-milling-machine-in-industrial-workshop-high-speed-end-mill-cutting-aluminum-block-coolant-spray-precision-metalworking-clean-environment-professional-manufacturing&width=1920&height=600&seq=milling-hero-001&orientation=landscape"
-            alt="Фрезерная обработка на станке ЧПУ"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-dark-brand via-dark-brand/90 to-dark-brand/40" />
-        </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+      <section className="py-10 lg:py-14 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumbs
             items={[
               { label: 'Услуги', href: '/services' },
               { label: 'Фрезерная обработка с ЧПУ' },
             ]}
           />
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-brand/20 rounded-full text-brand text-sm font-medium mb-6">
-              <i className="ri-box-3-line" />
-              1000×620×600
+          <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mt-4 mb-8">
+            Фрезерная обработка с ЧПУ
+          </h1>
+          <div className="grid lg:grid-cols-2 gap-8 items-start">
+            <img
+              src="https://readdy.ai/api/search-image?query=modern-cnc-vertical-milling-machine-in-industrial-workshop-high-speed-end-mill-cutting-aluminum-block-coolant-spray-precision-metalworking-clean-environment-professional-manufacturing&width=800&height=600&seq=milling-hero-001&orientation=landscape"
+              alt="Фрезерная обработка на станке ЧПУ"
+              className="w-full rounded-lg object-cover aspect-[4/3]"
+            />
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-widest text-gray-500 mb-2">
+                Максимальный габарит обработки
+              </p>
+              <p className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6 leading-none">
+                1000×620×600
+              </p>
+              <p className="text-gray-600 mb-8 leading-relaxed">
+                Фрезеруем корпусные детали, пластины, кронштейны и сложные 3D-поверхности на вертикальных
+                обрабатывающих центрах с ЧПУ. Точность обработки ±0.01 мм. Если вы не знаете, как
+                сделать деталь, мы поможем с разработкой конструкторской документации.
+              </p>
+              <a
+                href="#form"
+                className="inline-flex items-center gap-2 bg-brand text-white px-8 py-4 rounded-lg text-base font-semibold hover:bg-brand-dark transition-colors uppercase tracking-wide"
+              >
+                Заказать услугу
+              </a>
             </div>
-            <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-              Фрезерная обработка с ЧПУ
-            </h1>
-            <p className="text-lg text-gray-300 mb-8 leading-relaxed">
-              Фрезеруем корпусные детали, пластины, кронштейны и сложные 3D-поверхности на вертикальных
-              обрабатывающих центрах. Рабочая зона до 1000×620×600 мм. Точность обработки ±0.01 мм.
-              Единичные детали — от 3 часов.
-            </p>
-            <a
-              href="#form"
-              className="inline-flex items-center gap-2 bg-brand text-white px-8 py-4 rounded-lg text-base font-semibold hover:bg-brand-dark transition-colors"
-            >
-              Рассчитать стоимость
-              <i className="ri-arrow-right-line" />
-            </a>
           </div>
         </div>
       </section>

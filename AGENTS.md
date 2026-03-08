@@ -4,7 +4,7 @@
 
 Миграция с React+Vite SPA на Next.js App Router **завершена**. Сборка проходит без ошибок. Визуальная проверка и деплой ещё не выполнены.
 
-Git: инициализирован локально, 1 коммит (backup исходного Vite-проекта). GitHub-репозиторий ещё не подключён.
+Git: инициализирован локально. GitHub-репозиторий подключён: https://github.com/alekskuzminov/armada.git
 
 ## Стек
 
@@ -39,17 +39,17 @@ app/
 +-- page.tsx                Главная (Server Component, секции inline)
 +-- not-found.tsx           404
 +-- (home)/
-|   +-- HeroSection.tsx     Client: hero-форма с useActionState
+|   +-- HeroSection.tsx     Client: hero с параллаксом, формой (useActionState), pt-36/pt-40 под fixed header
 +-- about/page.tsx          О компании
 +-- contacts/page.tsx       Контакты (с Google Maps iframe)
 +-- delivery/page.tsx       Доставка и оплата
 +-- services/
     +-- turning/
-    |   +-- page.tsx                Токарные работы (Server Component)
+    |   +-- page.tsx                Токарные работы — белый hero (grid 2 col: фото | текст + CTA)
     |   +-- TurningEquipment.tsx    Client: expand/collapse оборудования
     |   +-- TurningGallery.tsx      Client: обёртка Gallery
     +-- milling/
-    |   +-- page.tsx
+    |   +-- page.tsx                Фрезерная обработка — белый hero (grid 2 col: фото | текст + CTA)
     |   +-- MillingEquipment.tsx
     |   +-- MillingGallery.tsx
     +-- edm/
@@ -65,7 +65,8 @@ app/
 
 components/
 +-- layout/
-|   +-- Navigation.tsx      Client: sticky nav, dropdown услуг, мобильное меню
+|   +-- Navigation.tsx      Client: fixed header с прозрачным режимом, dropdown услуг, мобильное меню,
+|   |                       ResizeObserver для отслеживания высоты, spacer div для страниц без прозрачного хедера
 |   +-- Footer.tsx          Server Component
 +-- shared/
     +-- Breadcrumbs.tsx     Server Component, принимает items: BreadcrumbItem[]
@@ -97,21 +98,23 @@ components/
 - **ContactFormBlock** — универсальный компонент формы. Принимает список полей через fields prop, поддерживает светлую и тёмную тему.
 - **Gallery** — два layout: fullwidth (слайдер с миниатюрами снизу) и sidebyside (изображение + описание рядом).
 - **Изображения**: внешние URL с readdy.ai — img теги, не next/image. В next.config.ts настроен remotePatterns на случай миграции.
-- **Навигация**: включает мобильное бургер-меню (не было в оригинале).
+- **Навигация**: `fixed inset-x-0 top-0` (не sticky). Включает мобильное бургер-меню. Высота хедера отслеживается через `ResizeObserver` и передаётся через `headerHeight` state. Для страниц без прозрачного хедера рендерится `<div style={{ height: headerHeight }}>` — spacer, компенсирующий fixed-позиционирование.
+- **Прозрачный хедер**: список маршрутов `transparentHeaderRoutes = ['/', '/about', '/contacts']` в `Navigation.tsx` определяет, где хедер стартует прозрачным (белый текст на тёмном hero). Правило: маршрут включается в список **только если hero страницы имеет тёмный фон с фоновым изображением**. Страницы с белым hero (нет оверлея/фонового изображения) — НЕ включать: хедер на них должен сразу быть в «скролл»-состоянии (белый фон, тёмный шрифт).
+- **Hero страниц услуг**: turning и milling имеют белый hero-layout — `grid lg:grid-cols-2` (фото слева, заголовок + габарит + описание + CTA справа). Остальные страницы услуг используют `pt-10` на первой секции для отступа под fixed header. НИ ОДНА страница услуг не включена в `transparentHeaderRoutes`.
 - **SEO**: metadata через Next.js Metadata API на каждой странице, robots.ts, sitemap.ts.
 
 ## Что НЕ сделано / TODO
 
 1. **Визуальная проверка** — npm run dev ещё не запускался для ручной проверки страниц.
-2. **GitHub** — репозиторий не создан, remote не подключён, миграция не закоммичена.
-3. **Email-отправка** — app/actions.ts содержит заглушку. Нужно подключить nodemailer или resend.
-4. **Изображения** — все ссылаются на readdy.ai API. Нужно заменить на локальные/собственные.
-5. **Favicon** — нет своего favicon.
-6. **Адаптив** — Navigation имеет мобильное меню, но остальные секции не проверены на mobile.
-7. **Remix Icon -> Lucide** — иконки через CDN. Можно мигрировать на lucide-react (уже в зависимостях).
-8. **Политика конфиденциальности** — ссылки в формах ведут в никуда (#).
-9. **Google Maps** — iframe на странице контактов использует приблизительные координаты.
-10. **Тексты** — часть текстов (доставка, термообработка) содержит неотредактированные фрагменты из оригинала.
+2. **Email-отправка** — app/actions.ts содержит заглушку. Нужно подключить nodemailer или resend.
+3. **Изображения** — все ссылаются на readdy.ai API. Нужно заменить на локальные/собственные.
+4. **Favicon** — нет своего favicon.
+5. **Адаптив** — Navigation имеет мобильное меню, но остальные секции не проверены на mobile.
+6. **Remix Icon -> Lucide** — иконки через CDN. Можно мигрировать на lucide-react (уже в зависимостях).
+7. **Политика конфиденциальности** — ссылки в формах ведут в никуда (#).
+8. **Google Maps** — iframe на странице контактов использует приблизительные координаты.
+9. **Тексты** — часть текстов (доставка, термообработка) содержит неотредактированные фрагменты из оригинала.
+10. **Hero страниц услуг** — edm, heat-treatment, grinding, custom используют простой белый hero без изображения. Требуют доработки по образцу turning/milling.
 
 ## Команды
 

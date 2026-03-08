@@ -133,7 +133,7 @@ export default function CustomPage() {
   return (
     <>
       {/* Breadcrumbs */}
-      <section className="max-w-7xl mx-auto px-4 pt-6">
+      <section className="max-w-7xl mx-auto px-4 pt-10">
         <Breadcrumbs
           items={[
             { label: 'Услуги', href: '/services' },

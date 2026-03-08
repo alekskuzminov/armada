@@ -53,7 +53,7 @@ export default function EdmPage() {
   return (
     <>
       {/* Hero */}
-      <section className="py-16 lg:py-24">
+      <section className="pt-10 pb-16 lg:pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumbs
             items={[

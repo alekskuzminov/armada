@@ -48,7 +48,7 @@ const paymentMethods = [
 export default function DeliveryPage() {
   return (
     <>
-      <section className="bg-white pt-8 pb-16 md:pb-24">
+      <section className="bg-white pt-10 pb-16 md:pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumbs items={[{ label: 'Доставка и оплата' }]} />
 
