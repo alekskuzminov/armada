@@ -2,7 +2,7 @@ const machines = [
   {
     name: 'SVM55',
     fullName: 'Вертикально-фрезерный обрабатывающий центр, модель SVM55',
-    image: '/images/home/SVM-55.jpg',
+    image: 'https://buelifmopuduegur.begetcdn.cloud/images/home/SVM-55.jpg',
     specs: [
       { label: 'Макс. размер обрабатываемой детали, мм', value: '550×410×460' },
       { label: 'Мощность привода шпинделя', value: '7,5 кВт' },
@@ -13,7 +13,7 @@ const machines = [
   {
     name: 'SVL-1166',
     fullName: 'Вертикально-фрезерный обрабатывающий центр, модель SVL-1166',
-    image: '/images/home/SVL-1160.jpg',
+    image: 'https://buelifmopuduegur.begetcdn.cloud/images/home/SVL-1160.jpg',
     specs: [
       { label: 'Макс. размер обрабатываемой детали, мм', value: '1000×620×600' },
       { label: 'Мощность привода шпинделя', value: '11 кВт' },

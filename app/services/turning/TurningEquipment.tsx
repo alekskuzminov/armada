@@ -6,7 +6,7 @@ const machines = [
   {
     name: 'ML480',
     fullName: 'Токарный обрабатывающий центр, модель ML480',
-    image: '/images/home/ML-480.webp',
+    image: 'https://buelifmopuduegur.begetcdn.cloud/images/home/ML-480.webp',
     specs: [
       { label: 'Макс. размер обрабатываемой детали', value: 'L480 Ø300' },
       { label: 'Макс. диаметр прутка, мм', value: '51' },
@@ -18,7 +18,7 @@ const machines = [
   {
     name: 'ML-560S',
     fullName: 'Токарный обрабатывающий центр, модель ML-560S',
-    image: '/images/home/ML-560S.webp',
+    image: 'https://buelifmopuduegur.begetcdn.cloud/images/home/ML-560S.webp',
     specs: [
       { label: 'Макс. размер обрабатываемой детали', value: 'L560 Ø320' },
       { label: 'Макс. диаметр прутка, мм', value: '52' },
@@ -30,7 +30,7 @@ const machines = [
   {
     name: 'SKM NL2000M',
     fullName: 'Токарный обрабатывающий центр с приводным инструментом, модель SKM NL2000M',
-    image: '/images/home/SKMC_SL2000M.webp',
+    image: 'https://buelifmopuduegur.begetcdn.cloud/images/home/SKMC_SL2000M.webp',
     specs: [
       { label: 'Макс. размер обрабатываемой детали', value: 'L540 Ø381' },
       { label: 'Макс. диаметр прутка, мм', value: '67' },
@@ -42,7 +42,7 @@ const machines = [
   {
     name: 'RT-210',
     fullName: 'Токарный обрабатывающий центр, модель RT210',
-    image: '/images/home/RT-210.jpg',
+    image: 'https://buelifmopuduegur.begetcdn.cloud/images/home/RT-210.jpg',
     specs: [
       { label: 'Макс. размер обрабатываемой детали', value: 'L450 Ø350' },
       { label: 'Макс. диаметр прутка, мм', value: '51' },

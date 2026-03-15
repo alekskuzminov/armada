@@ -41,21 +41,21 @@ const services = [
     desc: 'Изготовление тел вращения: валы, втулки, фланцы, оси, штуцеры. Обработка наружных и внутренних поверхностей, нарезка резьб, расточка отверстий.',
     icon: 'ri-clockwise-2-line',
     href: '/services/turning',
-    image: '/images/home/turning-operations-preview.webp',
+    image: 'https://buelifmopuduegur.begetcdn.cloud/images/home/turning-operations-preview.webp',
   },
   {
     title: 'Фрезерная обработка ЧПУ',
     desc: 'Обработка корпусных деталей, пластин, кронштейнов, крышек. 3-осевое фрезерование, обработка плоскостей, пазов, карманов и сложных контуров.',
     icon: 'ri-tools-line',
     href: '/services/milling',
-    image: '/images/home/milling-preview.webp',
+    image: 'https://buelifmopuduegur.begetcdn.cloud/images/home/milling-preview.webp',
   },
   {
     title: 'Серийное производство',
     desc: 'Выпуск партий от 50 до 10 000 деталей. Стабильное качество, повторяемость размеров, оптимизация себестоимости за счёт серийной технологии.',
     icon: 'ri-stack-line',
     href: '/services/custom',
-    image: '/images/home/сustom-made-parts.webp',
+    image: 'https://buelifmopuduegur.begetcdn.cloud/images/home/сustom-made-parts.webp',
   },
 ];
 
@@ -73,37 +73,37 @@ const equipment = [
     name: 'ML480',
     type: 'Токарный станок с ЧПУ',
     specs: 'Макс. диаметр обработки 480 мм, длина 1000 мм',
-    image: '/images/home/ML-480.webp',
+    image: 'https://buelifmopuduegur.begetcdn.cloud/images/home/ML-480.webp',
   },
   {
     name: 'ML-560S',
     type: 'Токарный станок с ЧПУ',
     specs: 'Макс. диаметр обработки 560 мм, наклонная станина',
-    image: '/images/home/ML-560S.webp',
+    image: 'https://buelifmopuduegur.begetcdn.cloud/images/home/ML-560S.webp',
   },
   {
     name: 'SKM NL2000M',
     type: 'Токарно-фрезерный центр',
     specs: 'Комплексная обработка, приводной инструмент, ось C',
-    image: '/images/home/SKMC_SL2000M.webp',
+    image: 'https://buelifmopuduegur.begetcdn.cloud/images/home/SKMC_SL2000M.webp',
   },
   {
     name: 'RT-210',
     type: 'Токарный обрабатывающий центр',
     specs: 'Макс. размер детали L450 Ø350 мм, шпиндель 4500 об/мин',
-    image: '/images/home/RT-210.jpg',
+    image: 'https://buelifmopuduegur.begetcdn.cloud/images/home/RT-210.jpg',
   },
   {
     name: 'SVM55',
     type: 'Вертикальный фрезерный центр',
     specs: 'Рабочий стол 550×350 мм, 3 оси, шпиндель 8000 об/мин',
-    image: '/images/home/SVM-55.jpg',
+    image: 'https://buelifmopuduegur.begetcdn.cloud/images/home/SVM-55.jpg',
   },
   {
     name: 'SVL-1166',
     type: 'Вертикальный обрабатывающий центр',
     specs: 'Рабочий стол 1100×600 мм, высокая жёсткость, тяжёлые заготовки',
-    image: '/images/home/SVL-1160.jpg',
+    image: 'https://buelifmopuduegur.begetcdn.cloud/images/home/SVL-1160.jpg',
   },
 ];
 
