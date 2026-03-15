@@ -2,9 +2,8 @@ module.exports = {
   apps: [
     {
       name: 'armada',
-      script: 'node',
-      args: '.next/standalone/server.js',
-      cwd: '/var/www/armada',
+      script: 'server.js',
+      cwd: '/var/www/armada/.next/standalone',
       instances: 1,
       autorestart: true,
       watch: false,
