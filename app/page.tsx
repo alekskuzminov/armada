@@ -41,24 +41,21 @@ const services = [
     desc: 'Изготовление тел вращения: валы, втулки, фланцы, оси, штуцеры. Обработка наружных и внутренних поверхностей, нарезка резьб, расточка отверстий.',
     icon: 'ri-clockwise-2-line',
     href: '/services/turning',
-    image:
-      'https://readdy.ai/api/search-image?query=CNC%20lathe%20turning%20metal%20part%20precision%20machining%20industrial%20manufacturing%20close%20up%20steel%20chips&width=600&height=400&seq=svc001&orientation=landscape',
+    image: '/images/home/turning-operations-preview.webp',
   },
   {
     title: 'Фрезерная обработка ЧПУ',
     desc: 'Обработка корпусных деталей, пластин, кронштейнов, крышек. 3-осевое фрезерование, обработка плоскостей, пазов, карманов и сложных контуров.',
     icon: 'ri-tools-line',
     href: '/services/milling',
-    image:
-      'https://readdy.ai/api/search-image?query=CNC%20milling%20machine%20cutting%20metal%20block%20precision%20manufacturing%20industrial%20close%20up&width=600&height=400&seq=svc002&orientation=landscape',
+    image: '/images/home/milling-preview.webp',
   },
   {
     title: 'Серийное производство',
     desc: 'Выпуск партий от 50 до 10 000 деталей. Стабильное качество, повторяемость размеров, оптимизация себестоимости за счёт серийной технологии.',
     icon: 'ri-stack-line',
     href: '/services/custom',
-    image:
-      'https://readdy.ai/api/search-image?query=batch%20production%20metal%20parts%20CNC%20manufacturing%20multiple%20identical%20precision%20components%20industrial&width=600&height=400&seq=svc003&orientation=landscape',
+    image: '/images/home/сustom-made-parts.webp',
   },
 ];
 
@@ -76,43 +73,37 @@ const equipment = [
     name: 'ML480',
     type: 'Токарный станок с ЧПУ',
     specs: 'Макс. диаметр обработки 480 мм, длина 1000 мм',
-    image:
-      'https://readdy.ai/api/search-image?query=CNC%20lathe%20machine%20industrial%20metalworking%20turning%20center%20workshop&width=400&height=300&seq=eq001&orientation=landscape',
+    image: '/images/home/ML-480.webp',
   },
   {
     name: 'ML-560S',
     type: 'Токарный станок с ЧПУ',
     specs: 'Макс. диаметр обработки 560 мм, наклонная станина',
-    image:
-      'https://readdy.ai/api/search-image?query=CNC%20turning%20center%20industrial%20lathe%20heavy%20duty%20metal%20processing%20factory&width=400&height=300&seq=eq002&orientation=landscape',
+    image: '/images/home/ML-560S.webp',
   },
   {
     name: 'SKM NL2000M',
     type: 'Токарно-фрезерный центр',
     specs: 'Комплексная обработка, приводной инструмент, ось C',
-    image:
-      'https://readdy.ai/api/search-image?query=CNC%20turning%20milling%20center%20NL2000%20heavy%20duty%20industrial%20manufacturing%20machine&width=400&height=300&seq=eq003&orientation=landscape',
+    image: '/images/home/SKMC_SL2000M.webp',
+  },
+  {
+    name: 'RT-210',
+    type: 'Токарный обрабатывающий центр',
+    specs: 'Макс. размер детали L450 Ø350 мм, шпиндель 4500 об/мин',
+    image: '/images/home/RT-210.jpg',
   },
   {
     name: 'SVM55',
     type: 'Вертикальный фрезерный центр',
     specs: 'Рабочий стол 550×350 мм, 3 оси, шпиндель 8000 об/мин',
-    image:
-      'https://readdy.ai/api/search-image?query=CNC%20vertical%20milling%20machine%20metalworking%20precision%20manufacturing%20center&width=400&height=300&seq=eq004&orientation=landscape',
+    image: '/images/home/SVM-55.jpg',
   },
   {
     name: 'SVL-1166',
     type: 'Вертикальный обрабатывающий центр',
     specs: 'Рабочий стол 1100×600 мм, высокая жёсткость, тяжёлые заготовки',
-    image:
-      'https://readdy.ai/api/search-image?query=CNC%20vertical%20machining%20center%20large%20industrial%20metalworking%20precision&width=400&height=300&seq=eq005&orientation=landscape',
-  },
-  {
-    name: 'Измерительное оборудование',
-    type: 'Контроль качества',
-    specs: 'КИМ, профилометр, индикаторы, калибры, микрометры',
-    image:
-      'https://readdy.ai/api/search-image?query=precision%20measuring%20equipment%20CMM%20coordinate%20measuring%20machine%20quality%20control%20metrology&width=400&height=300&seq=eq006&orientation=landscape',
+    image: '/images/home/SVL-1160.jpg',
   },
 ];
 

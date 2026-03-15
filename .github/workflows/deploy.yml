@@ -1,0 +1,41 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          script: |
+            set -e
+            cd /var/www/armada
+
+            echo "==> Pull latest code"
+            git pull origin main
+
+            echo "==> Install dependencies"
+            npm ci
+
+            echo "==> Build"
+            npm run build
+
+            echo "==> Copy public to standalone"
+            cp -r public .next/standalone/public
+
+            echo "==> Restart app"
+            pm2 restart armada || pm2 start ecosystem.config.js
+
+            echo "==> Deploy complete"
