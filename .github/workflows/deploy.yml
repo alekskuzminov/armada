@@ -32,7 +32,8 @@ jobs:
             echo "==> Build"
             npm run build
 
-            echo "==> Copy public to standalone"
+            echo "==> Copy static files to standalone"
+            cp -r .next/static .next/standalone/.next/static
             cp -r public .next/standalone/public
 
             echo "==> Restart app"
