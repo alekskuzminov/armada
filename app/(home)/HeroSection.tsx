@@ -22,7 +22,7 @@ export default function HeroSection() {
     <section className="relative min-h-screen flex items-center overflow-hidden">
       <div className="absolute inset-0 overflow-hidden">
         <img
-          src="https://readdy.ai/api/search-image?query=modern%20industrial%20CNC%20machining%20center%20in%20action%20with%20metal%20chips%20flying%20precision%20manufacturing%20environment%20with%20dramatic%20lighting%20and%20blue%20metallic%20tones%20high%20tech%20factory%20atmosphere%20showing%20advanced%20automation%20and%20engineering%20excellence%20dark%20industrial%20background&width=1920&height=1080&seq=hero001&orientation=landscape"
+          src="/images/home/main.jpg"
           alt="ЧПУ обработка металла"
           className="w-full h-[128%] object-cover"
           style={{ transform: `translateY(${scrollY * 0.35}px)`, top: '-6%', position: 'relative' }}
