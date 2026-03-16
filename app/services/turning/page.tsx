@@ -156,7 +156,7 @@ export default function TurningPage() {
           </h1>
           <div className="grid lg:grid-cols-2 gap-8 items-start">
             <img
-              src="https://readdy.ai/api/search-image?query=modern-cnc-lathe-machine-in-industrial-workshop-with-metal-chips-flying-during-precision-turning-operation-close-up-view-of-rotating-workpiece-and-cutting-tool-professional-metalworking-environment-with-clean-background-high-tech-manufacturing-scene&width=800&height=600&seq=turning-hero-001&orientation=landscape"
+              src="/images/turning/turning-hero.webp"
               alt="Токарная обработка на станке ЧПУ"
               className="w-full rounded-lg object-cover aspect-[4/3]"
             />

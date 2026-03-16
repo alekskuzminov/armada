@@ -156,7 +156,7 @@ export default function MillingPage() {
           </h1>
           <div className="grid lg:grid-cols-2 gap-8 items-start">
             <img
-              src="https://readdy.ai/api/search-image?query=modern-cnc-vertical-milling-machine-in-industrial-workshop-high-speed-end-mill-cutting-aluminum-block-coolant-spray-precision-metalworking-clean-environment-professional-manufacturing&width=800&height=600&seq=milling-hero-001&orientation=landscape"
+              src="/images/milling/milling-hero.webp"
               alt="Фрезерная обработка на станке ЧПУ"
               className="w-full rounded-lg object-cover aspect-[4/3]"
             />
