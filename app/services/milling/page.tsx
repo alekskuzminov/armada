@@ -7,7 +7,7 @@ import MillingGallery from './MillingGallery';
 export const metadata: Metadata = {
   title: 'Фрезерная обработка с ЧПУ',
   description:
-    'Фрезерная обработка деталей на вертикальных обрабатывающих центрах с ЧПУ. Рабочая зона до 1000×620×600 мм. Точность ±0.01 мм. Расчёт за 2 часа.',
+    'Фрезерная обработка деталей на вертикальных обрабатывающих центрах с ЧПУ. Рабочая зона до 1000×620×600 мм. Точность ±0.01 мм. Расчёт за 24 часа.',
   openGraph: {
     title: 'Фрезерная обработка с ЧПУ | Армада',
     description:
@@ -124,7 +124,7 @@ const timeline = [
   },
   {
     step: '02',
-    title: 'Расчёт за 2 часа',
+    title: 'Расчёт за 24 часа',
     desc: 'Подготовим коммерческое предложение с ценой и сроками изготовления.',
   },
   {
@@ -307,12 +307,12 @@ export default function MillingPage() {
               <h2 className="text-3xl font-bold text-gray-900 mb-4">Рассчитайте стоимость фрезерных работ</h2>
               <p className="text-gray-600 mb-6 leading-relaxed">
                 Отправьте заявку — мы подготовим коммерческое предложение с точной ценой и сроками
-                в течение 2 часов. Приложите чертёж или 3D-модель.
+                в течение 24 часов. Приложите чертёж или 3D-модель.
               </p>
               <div className="space-y-4">
                 <div className="flex items-center gap-3 text-sm text-gray-600">
                   <i className="ri-check-line text-brand text-lg" />
-                  Расчёт стоимости за 2 часа
+                  Расчёт стоимости за 24 часа
                 </div>
                 <div className="flex items-center gap-3 text-sm text-gray-600">
                   <i className="ri-check-line text-brand text-lg" />

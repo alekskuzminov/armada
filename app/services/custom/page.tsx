@@ -5,7 +5,7 @@ import CustomHeroSection from './CustomHeroSection';
 export const metadata: Metadata = {
   title: 'Изготовление деталей на заказ',
   description:
-    'Изготовление деталей на заказ: единичные, средние и серийные партии. Токарная и фрезерная обработка на ЧПУ. Расчёт стоимости за 2 часа.',
+    'Изготовление деталей на заказ: единичные, средние и серийные партии. Токарная и фрезерная обработка на ЧПУ. Расчёт стоимости за 24 часа.',
   openGraph: {
     title: 'Изготовление деталей на заказ | Армада',
     description:
@@ -90,7 +90,7 @@ const noDrawingsInfo = [
 
 const processSteps = [
   { num: '01', title: 'Заявка', desc: 'Получаем чертёж или образец', icon: 'ri-file-list-line' },
-  { num: '02', title: 'Расчёт', desc: 'Рассчитываем стоимость за 2 часа', icon: 'ri-calculator-line' },
+  { num: '02', title: 'Расчёт', desc: 'Рассчитываем стоимость за 24 часа', icon: 'ri-calculator-line' },
   { num: '03', title: 'Согласование', desc: 'Утверждаем ТЗ и сроки', icon: 'ri-handshake-line' },
   { num: '04', title: 'Производство', desc: 'Изготавливаем на станках ЧПУ', icon: 'ri-cpu-line' },
   { num: '05', title: 'Контроль', desc: 'Проверяем каждую деталь', icon: 'ri-shield-check-line' },

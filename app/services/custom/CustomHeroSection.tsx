@@ -9,7 +9,7 @@ const stats = [
 ];
 
 const checks = [
-  'Расчёт стоимости за 2 часа',
+  'Расчёт стоимости за 24 часа',
   'Точность обработки ±0.01 мм',
   'Любые марки стали и цветных металлов',
 ];
@@ -68,7 +68,7 @@ export default function CustomHeroSection() {
             <ContactFormBlock
               formId="custom-hero-form"
               heading="Рассчитать стоимость"
-              subheading="Заполните форму — ответим в течение 2 часов"
+              subheading="Заполните форму — ответим в течение 24 часов"
               variant="dark"
               fields={['name', 'phone', 'email', 'quantity', 'material', 'message']}
             />

@@ -39,7 +39,7 @@ export default function ContactModal() {
           <div>
             <h2 className="text-2xl font-bold text-white">Обсудить заказ</h2>
             <p className="text-white/70 text-sm mt-1">
-              Отправьте заявку — ответим и рассчитаем стоимость за 2 часа
+              Отправьте заявку — ответим и рассчитаем стоимость за 24 часа
             </p>
           </div>
           <button

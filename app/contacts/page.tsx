@@ -29,7 +29,7 @@ const contactCards = [
       { text: 'info@armada-cnc.ru', href: 'mailto:info@armada-cnc.ru' },
       { text: 'zakaz@armada-cnc.ru', href: 'mailto:zakaz@armada-cnc.ru' },
     ],
-    note: 'Ответим в течение 2 часов',
+    note: 'Ответим в течение 24 часов',
   },
   {
     icon: 'ri-map-pin-line',

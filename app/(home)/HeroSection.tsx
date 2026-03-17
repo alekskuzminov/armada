@@ -59,7 +59,7 @@ export default function HeroSection() {
               </div>
               <div className="w-px bg-white/20 hidden sm:block" />
               <div>
-                <div className="text-2xl font-bold text-brand lg:text-[1.75rem]">от 2 часов</div>
+                <div className="text-2xl font-bold text-brand lg:text-[1.75rem]">за 24 часа</div>
                 <div className="text-sm text-gray-400 mt-1">расчёт стоимости</div>
               </div>
               <div className="w-px bg-white/20 hidden sm:block" />
@@ -89,7 +89,7 @@ export default function HeroSection() {
           <div className="rounded-2xl border border-white/20 bg-white/10 p-6 backdrop-blur-md lg:col-span-2 lg:mt-[4rem] lg:self-start lg:p-7">
             <h2 className="mb-2 text-2xl font-bold text-white">Быстрый расчёт</h2>
             <p className="mb-5 text-sm text-gray-400">
-              Отправьте заявку и получите расчёт стоимости за 2 часа
+              Отправьте заявку и получите расчёт стоимости за 24 часа
             </p>
 
             <form action={formAction} className="space-y-4">

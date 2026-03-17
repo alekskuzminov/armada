@@ -7,7 +7,7 @@ import TurningGallery from './TurningGallery';
 export const metadata: Metadata = {
   title: 'Токарные работы с ЧПУ',
   description:
-    'Токарная обработка деталей на станках с ЧПУ. Максимальные размеры L560 Ø380. Точность ±0.01 мм. Серийное и единичное производство. Расчёт за 2 часа.',
+    'Токарная обработка деталей на станках с ЧПУ. Максимальные размеры L560 Ø380. Точность ±0.01 мм. Серийное и единичное производство. Расчёт за 24 часа.',
   openGraph: {
     title: 'Токарные работы с ЧПУ | Армада',
     description:
@@ -124,7 +124,7 @@ const timeline = [
   },
   {
     step: '02',
-    title: 'Расчёт за 2 часа',
+    title: 'Расчёт за 24 часа',
     desc: 'Подготовим коммерческое предложение с ценой и сроками изготовления.',
   },
   {
@@ -309,12 +309,12 @@ export default function TurningPage() {
               <h2 className="text-3xl font-bold text-gray-900 mb-4">Рассчитайте стоимость токарных работ</h2>
               <p className="text-gray-600 mb-6 leading-relaxed">
                 Отправьте заявку — мы подготовим коммерческое предложение с точной ценой и сроками
-                в течение 2 часов. Приложите чертёж или опишите деталь.
+                в течение 24 часов. Приложите чертёж или опишите деталь.
               </p>
               <div className="space-y-4">
                 <div className="flex items-center gap-3 text-sm text-gray-600">
                   <i className="ri-check-line text-brand text-lg" />
-                  Расчёт стоимости за 2 часа
+                  Расчёт стоимости за 24 часа
                 </div>
                 <div className="flex items-center gap-3 text-sm text-gray-600">
                   <i className="ri-check-line text-brand text-lg" />

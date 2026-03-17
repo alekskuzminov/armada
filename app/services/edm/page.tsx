@@ -6,7 +6,7 @@ import EdmGallery from './EdmGallery';
 export const metadata: Metadata = {
   title: 'Электроэрозионная обработка',
   description:
-    'Проволочная электроэрозионная обработка металлов на станках ЧПУ. Вырезание сложных контуров, штампов, пресс-форм. Точность ±0.005 мм. Расчёт за 2 часа.',
+    'Проволочная электроэрозионная обработка металлов на станках ЧПУ. Вырезание сложных контуров, штампов, пресс-форм. Точность ±0.005 мм. Расчёт за 24 часа.',
   openGraph: {
     title: 'Электроэрозионная обработка | Армада',
     description:
@@ -175,12 +175,12 @@ export default function EdmPage() {
               </h2>
               <p className="text-gray-400 mb-6 leading-relaxed">
                 Отправьте чертёж или опишите деталь — мы подготовим коммерческое предложение
-                с ценой и сроками в течение 2 часов.
+                с ценой и сроками в течение 24 часов.
               </p>
               <div className="space-y-4">
                 <div className="flex items-center gap-3 text-sm text-gray-400">
                   <i className="ri-check-line text-brand text-lg" />
-                  Расчёт стоимости за 2 часа
+                  Расчёт стоимости за 24 часа
                 </div>
                 <div className="flex items-center gap-3 text-sm text-gray-400">
                   <i className="ri-check-line text-brand text-lg" />
