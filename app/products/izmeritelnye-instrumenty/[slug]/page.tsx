@@ -15,7 +15,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProductBySlug('measuring-instruments', slug);
+  const product = getProductBySlug('izmeritelnye-instrumenty', slug);
 
   if (!product) return { title: 'Товар не найден' };
 
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function MeasuringInstrumentProductPage({ params }: Props) {
   const { slug } = await params;
-  const product = getProductBySlug('measuring-instruments', slug);
+  const product = getProductBySlug('izmeritelnye-instrumenty', slug);
 
   if (!product) notFound();
 

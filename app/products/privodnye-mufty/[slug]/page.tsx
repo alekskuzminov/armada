@@ -15,7 +15,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProductBySlug('drive-couplings', slug);
+  const product = getProductBySlug('privodnye-mufty', slug);
 
   if (!product) return { title: 'Товар не найден' };
 
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function DriveCouplingsProductPage({ params }: Props) {
   const { slug } = await params;
-  const product = getProductBySlug('drive-couplings', slug);
+  const product = getProductBySlug('privodnye-mufty', slug);
 
   if (!product) notFound();
 
