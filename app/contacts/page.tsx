@@ -17,17 +17,16 @@ const contactCards = [
     icon: 'ri-phone-line',
     title: 'Телефон',
     lines: [
-      { text: '+7 (8332) 45-67-89', href: 'tel:+78332456789' },
-      { text: '+7 (912) 345-67-89', href: 'tel:+79123456789' },
+      { text: '+7 (495) 789-00-54', href: 'tel:+74957890054' },
+      // TODO: уточнить у заказчика второй номер (мобильный/WhatsApp)
     ],
-    note: 'Пн–Пт: 08:00–18:00',
+    note: 'Пн–Пт: 9:00–20:00',
   },
   {
     icon: 'ri-mail-line',
     title: 'Email',
     lines: [
-      { text: 'info@armada-cnc.ru', href: 'mailto:info@armada-cnc.ru' },
-      { text: 'zakaz@armada-cnc.ru', href: 'mailto:zakaz@armada-cnc.ru' },
+      { text: 'armadaprom@mail.ru', href: 'mailto:armadaprom@mail.ru' },
     ],
     note: 'Ответим в течение 24 часов',
   },
@@ -35,17 +34,17 @@ const contactCards = [
     icon: 'ri-map-pin-line',
     title: 'Адрес',
     lines: [
-      { text: 'г. Киров, ул. Производственная, 15', href: undefined },
-      { text: 'Производственный корпус №2', href: undefined },
+      { text: 'г. Киров, пер. Химический, д.1', href: undefined },
+      // TODO: уточнить у заказчика ориентир / корпус
     ],
-    note: 'Есть парковка для клиентов',
+    note: 'Уточните маршрут по телефону',
   },
   {
     icon: 'ri-message-3-line',
     title: 'Мессенджеры',
     lines: [
-      { text: 'WhatsApp', href: 'https://wa.me/79123456789' },
-      { text: 'Telegram', href: 'https://t.me/armada_cnc' },
+      // TODO: уточнить у заказчика ссылки на WhatsApp / Telegram
+      { text: 'WhatsApp', href: 'https://wa.me/74957890054' },
     ],
     note: 'Быстрый ответ в рабочее время',
   },

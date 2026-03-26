@@ -25,14 +25,18 @@ export const metadata: Metadata = {
     'серийное производство',
     'обработка металла',
   ],
-  metadataBase: new URL('https://armada-cnc.ru'),
+  metadataBase: new URL('https://armadaprom.ru'),
+  // На временном домене (armadasite.ru) запрещаем индексацию через ROBOTS_NOINDEX=true
+  ...(process.env.ROBOTS_NOINDEX === 'true' && {
+    robots: { index: false, follow: false },
+  }),
   openGraph: {
     title: 'Армада — Изготовление деталей на ЧПУ с точностью ±0.01 мм',
     description:
       'Токарная и фрезерная обработка металла. Серийное производство от 50 деталей. Расчёт за 24 часа.',
     type: 'website',
     locale: 'ru_RU',
-    url: 'https://armada-cnc.ru',
+    url: 'https://armadaprom.ru',
   },
 };
 

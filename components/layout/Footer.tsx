@@ -1,17 +1,17 @@
 import Link from 'next/link';
 
 const serviceLinks = [
-  { href: '/services/turning', label: 'Токарные работы с ЧПУ' },
-  { href: '/services/milling', label: 'Фрезерная обработка с ЧПУ' },
-  { href: '/services/edm', label: 'Электроэрозионная обработка' },
-  { href: '/services/heat-treatment', label: 'Термообработка' },
-  { href: '/services/grinding', label: 'Шлифовальные работы' },
-  { href: '/services/custom', label: 'Изготовление деталей на заказ' },
+  { href: '/services/tokarnye-raboty-s-chpu', label: 'Токарные работы с ЧПУ' },
+  { href: '/services/frezernaya-obrabotka-s-chpu', label: 'Фрезерная обработка с ЧПУ' },
+  { href: '/services/elektroerozionnaya-obrabotka', label: 'Электроэрозионная обработка' },
+  { href: '/services/termoobrabotka', label: 'Термообработка' },
+  { href: '/services/shlifovalnye-raboty', label: 'Шлифовальные работы' },
+  { href: '/services/izgotovlenie-detalej-na-zakaz', label: 'Изготовление деталей на заказ' },
 ];
 
 const companyLinks = [
   { href: '/about', label: 'О компании' },
-  { href: '/delivery', label: 'Доставка и оплата' },
+  { href: '/payment', label: 'Доставка и оплата' },
   { href: '/contacts', label: 'Контакты' },
 ];
 

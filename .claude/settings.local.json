@@ -8,7 +8,8 @@
       "Bash(npx tsc:*)",
       "Bash(git status)",
       "Bash(git log:*)",
-      "Bash(git diff:*)"
+      "Bash(git diff:*)",
+      "WebFetch(domain:armadaprom.ru)"
     ]
   }
 }

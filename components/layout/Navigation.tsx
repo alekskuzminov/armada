@@ -4,12 +4,17 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useModal } from '@/components/shared/ModalContext';
+import { categories } from '@/app/products/data';
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isProductsOpen, setIsProductsOpen] = useState(false);
+  const [activeProductCategory, setActiveProductCategory] = useState<string | null>(null);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [isMobileProductsOpen, setIsMobileProductsOpen] = useState(false);
   const [closeTimeout, setCloseTimeoutState] = useState<ReturnType<typeof setTimeout> | null>(null);
+  const [productsCloseTimeout, setProductsCloseTimeout] = useState<ReturnType<typeof setTimeout> | null>(null);
   const [headerHeight, setHeaderHeight] = useState(0);
   const pathname = usePathname();
   const { open } = useModal();
@@ -55,6 +60,9 @@ export default function Navigation() {
   useEffect(() => {
     setIsMobileOpen(false);
     setIsServicesOpen(false);
+    setIsProductsOpen(false);
+    setActiveProductCategory(null);
+    setIsMobileProductsOpen(false);
   }, [pathname]);
 
   useEffect(() => {
@@ -62,6 +70,12 @@ export default function Navigation() {
       if (closeTimeout) clearTimeout(closeTimeout);
     };
   }, [closeTimeout]);
+
+  useEffect(() => {
+    return () => {
+      if (productsCloseTimeout) clearTimeout(productsCloseTimeout);
+    };
+  }, [productsCloseTimeout]);
 
   const handleConsultation = () => open();
 
@@ -75,13 +89,26 @@ export default function Navigation() {
     setCloseTimeoutState(timeout);
   };
 
+  const handleProductsEnter = () => {
+    if (productsCloseTimeout) clearTimeout(productsCloseTimeout);
+    setIsProductsOpen(true);
+  };
+
+  const handleProductsLeave = () => {
+    const timeout = setTimeout(() => {
+      setIsProductsOpen(false);
+      setActiveProductCategory(null);
+    }, 150);
+    setProductsCloseTimeout(timeout);
+  };
+
   const services = [
-    { href: '/services/turning', label: 'Токарные работы с ЧПУ' },
-    { href: '/services/milling', label: 'Фрезерная обработка с ЧПУ' },
-    { href: '/services/edm', label: 'Электроэрозионная обработка' },
-    { href: '/services/heat-treatment', label: 'Термообработка' },
-    { href: '/services/grinding', label: 'Шлифовальные работы' },
-    { href: '/services/custom', label: 'Изготовление деталей на заказ' },
+    { href: '/services/tokarnye-raboty-s-chpu', label: 'Токарные работы с ЧПУ' },
+    { href: '/services/frezernaya-obrabotka-s-chpu', label: 'Фрезерная обработка с ЧПУ' },
+    { href: '/services/elektroerozionnaya-obrabotka', label: 'Электроэрозионная обработка' },
+    { href: '/services/termoobrabotka', label: 'Термообработка' },
+    { href: '/services/shlifovalnye-raboty', label: 'Шлифовальные работы' },
+    { href: '/services/izgotovlenie-detalej-na-zakaz', label: 'Изготовление деталей на заказ' },
   ];
 
   return (
@@ -134,6 +161,82 @@ export default function Navigation() {
 
               {/* Desktop */}
               <div className="hidden lg:flex items-center gap-8">
+                {/* Продукция */}
+                <div
+                  className="relative"
+                  onMouseEnter={handleProductsEnter}
+                  onMouseLeave={handleProductsLeave}
+                >
+                  <button
+                    className={`flex items-center gap-1 whitespace-nowrap font-medium transition-colors hover:text-brand ${textClass}`}
+                  >
+                    Продукция
+                    <i
+                      className={`ri-arrow-down-s-line transition-transform ${
+                        isProductsOpen ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </button>
+
+                  {isProductsOpen && (
+                    <div className="absolute top-full left-0 pt-2 flex">
+                      {/* Левая панель — категории */}
+                      <div className="rounded-lg border border-neutral-100 bg-white py-2 shadow-xl min-w-[260px]">
+                        {categories.map((cat) => (
+                          <div
+                            key={cat.slug}
+                            onMouseEnter={() => cat.hasProducts ? setActiveProductCategory(cat.slug) : setActiveProductCategory(null)}
+                          >
+                            {cat.hasProducts ? (
+                              <Link
+                                href={`/products/${cat.slug}`}
+                                className="flex items-center justify-between px-4 py-3 text-neutral-700 transition-colors hover:bg-green-50 hover:text-brand"
+                              >
+                                {cat.name}
+                                <i className="ri-arrow-right-s-line text-neutral-400" />
+                              </Link>
+                            ) : (
+                              <Link
+                                href={`/products/${cat.slug}`}
+                                className="block px-4 py-3 text-neutral-700 transition-colors hover:bg-green-50 hover:text-brand"
+                              >
+                                {cat.name}
+                              </Link>
+                            )}
+                          </div>
+                        ))}
+                        <div className="border-t border-neutral-100 mt-1 pt-1">
+                          <Link
+                            href="/products"
+                            className="flex items-center gap-2 px-4 py-3 text-sm text-brand font-medium transition-colors hover:bg-green-50"
+                          >
+                            Весь каталог
+                            <i className="ri-arrow-right-line" />
+                          </Link>
+                        </div>
+                      </div>
+
+                      {/* Правая панель — товары активной категории */}
+                      {activeProductCategory && (
+                        <div className="rounded-lg border border-neutral-100 bg-white py-2 shadow-xl min-w-[280px] ml-1">
+                          {categories
+                            .find((c) => c.slug === activeProductCategory)
+                            ?.products.map((product) => (
+                              <Link
+                                key={product.slug}
+                                href={`/products/${activeProductCategory}/${product.slug}`}
+                                className="block px-4 py-3 text-sm text-neutral-700 transition-colors hover:bg-green-50 hover:text-brand leading-snug"
+                              >
+                                {product.shortName}
+                              </Link>
+                            ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                {/* Услуги */}
                 <div
                   className="relative"
                   onMouseEnter={handleServicesEnter}
@@ -168,7 +271,7 @@ export default function Navigation() {
                 </div>
 
                 <Link
-                  href="/delivery"
+                  href="/payment"
                   className={`whitespace-nowrap font-medium transition-colors hover:text-brand ${textClass}`}
                 >
                   Доставка и оплата
@@ -207,18 +310,60 @@ export default function Navigation() {
             {/* Mobile menu */}
             {isMobileOpen && (
               <div className="mt-4 space-y-3 border-t border-neutral-200 pb-4 pt-4 lg:hidden">
-                <div className="text-sm font-medium text-neutral-500">Услуги</div>
-                {services.map((s) => (
-                  <Link
-                    key={s.href}
-                    href={s.href}
-                    className="block py-2 pl-4 text-neutral-700 transition-colors hover:text-brand"
-                  >
-                    {s.label}
-                  </Link>
-                ))}
+                {/* Продукция */}
+                <button
+                  onClick={() => setIsMobileProductsOpen(!isMobileProductsOpen)}
+                  className="flex items-center justify-between w-full py-2 text-sm font-medium text-neutral-500"
+                >
+                  Продукция
+                  <i className={`ri-arrow-down-s-line transition-transform ${isMobileProductsOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {isMobileProductsOpen && (
+                  <div className="space-y-1 pl-2">
+                    {categories.map((cat) => (
+                      <div key={cat.slug}>
+                        <Link
+                          href={`/products/${cat.slug}`}
+                          className="block py-2 pl-2 text-neutral-700 transition-colors hover:text-brand"
+                        >
+                          {cat.name}
+                        </Link>
+                        {cat.hasProducts && cat.products.map((product) => (
+                          <Link
+                            key={product.slug}
+                            href={`/products/${cat.slug}/${product.slug}`}
+                            className="block py-1.5 pl-6 text-sm text-neutral-500 transition-colors hover:text-brand"
+                          >
+                            {product.shortName}
+                          </Link>
+                        ))}
+                      </div>
+                    ))}
+                    <Link
+                      href="/products"
+                      className="block py-2 pl-2 text-sm font-medium text-brand hover:underline"
+                    >
+                      Весь каталог →
+                    </Link>
+                  </div>
+                )}
+
+                {/* Услуги */}
+                <div className="border-t border-neutral-100 pt-3">
+                  <div className="text-sm font-medium text-neutral-500 mb-2">Услуги</div>
+                  {services.map((s) => (
+                    <Link
+                      key={s.href}
+                      href={s.href}
+                      className="block py-2 pl-4 text-neutral-700 transition-colors hover:text-brand"
+                    >
+                      {s.label}
+                    </Link>
+                  ))}
+                </div>
+
                 <div className="space-y-3 border-t border-neutral-200 pt-3">
-                  <Link href="/delivery" className="block py-2 font-medium text-neutral-700 hover:text-brand">
+                  <Link href="/payment" className="block py-2 font-medium text-neutral-700 hover:text-brand">
                     Доставка и оплата
                   </Link>
                   <Link href="/about" className="block py-2 font-medium text-neutral-700 hover:text-brand">
