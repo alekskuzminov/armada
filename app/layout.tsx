@@ -26,10 +26,7 @@ export const metadata: Metadata = {
     'обработка металла',
   ],
   metadataBase: new URL('https://armadaprom.ru'),
-  // На временном домене (armadasite.ru) запрещаем индексацию через ROBOTS_NOINDEX=true
-  ...(process.env.ROBOTS_NOINDEX === 'true' && {
-    robots: { index: false, follow: false },
-  }),
+  robots: { index: false, follow: false },
   openGraph: {
     title: 'Армада — Изготовление деталей на ЧПУ с точностью ±0.01 мм',
     description:
