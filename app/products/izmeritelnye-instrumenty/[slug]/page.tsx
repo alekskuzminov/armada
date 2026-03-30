@@ -3,7 +3,10 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Breadcrumbs from '@/components/shared/Breadcrumbs';
 import ContactFormBlock from '@/components/shared/ContactFormBlock';
-import { measuringInstruments, getProductBySlug } from '../../data';
+import Gallery from '@/components/shared/Gallery';
+import ProductOrderBlock from '@/components/products/ProductOrderBlock';
+import ModelsTableWithCart from '@/components/products/ModelsTableWithCart';
+import { measuringInstruments, getProductBySlug, hasModelsWithPrices, formatPrice } from '../../data';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -40,8 +43,44 @@ export default async function MeasuringInstrumentProductPage({ params }: Props) 
   // Похожие товары (остальные в категории, кроме текущего)
   const related = measuringInstruments.filter((p) => p.slug !== slug).slice(0, 3);
 
+  // JSON-LD микроразметка Schema.org Product
+  const modelsWithPrices = product.models?.filter((m) => m.price > 0) ?? [];
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    description: product.description,
+    ...(product.images?.[0] && { image: `https://armada-cnc.ru${product.images[0]}` }),
+    brand: { '@type': 'Brand', name: 'Армада' },
+    manufacturer: { '@type': 'Organization', name: 'Армада' },
+    ...(modelsWithPrices.length > 0 && {
+      offers: modelsWithPrices.length === 1
+        ? {
+            '@type': 'Offer',
+            priceCurrency: 'RUB',
+            price: modelsWithPrices[0].price / 100,
+            availability: 'https://schema.org/InStock',
+            seller: { '@type': 'Organization', name: 'Армада' },
+          }
+        : {
+            '@type': 'AggregateOffer',
+            priceCurrency: 'RUB',
+            lowPrice: Math.min(...modelsWithPrices.map((m) => m.price / 100)),
+            highPrice: Math.max(...modelsWithPrices.map((m) => m.price / 100)),
+            offerCount: modelsWithPrices.length,
+            availability: 'https://schema.org/InStock',
+          },
+    }),
+  };
+
   return (
     <>
+      {/* JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       {/* Hero */}
       <section className="py-10 lg:py-14 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -54,11 +93,21 @@ export default async function MeasuringInstrumentProductPage({ params }: Props) 
           />
 
           <div className="grid lg:grid-cols-2 gap-10 mt-4 items-start">
-            {/* Изображение-заглушка — заменить на реальное */}
-            <div className="w-full aspect-[4/3] bg-gray-100 rounded-xl flex flex-col items-center justify-center gap-3">
-              <i className="ri-ruler-line text-gray-300 text-6xl" />
-              <p className="text-xs text-gray-400">Изображение товара</p>
-            </div>
+            {/* Галерея изображений продукта */}
+            {product.images && product.images.length > 0 ? (
+              <Gallery
+                layout="product"
+                images={product.images.map((src, i) => ({
+                  src,
+                  alt: `${product.shortName} — фото ${i + 1}`,
+                }))}
+              />
+            ) : (
+              <div className="w-full aspect-[4/3] bg-gray-100 rounded-xl flex flex-col items-center justify-center gap-3">
+                <i className="ri-ruler-line text-gray-300 text-6xl" />
+                <p className="text-xs text-gray-400">Изображение товара</p>
+              </div>
+            )}
 
             <div>
               {product.standard && (
@@ -71,26 +120,36 @@ export default async function MeasuringInstrumentProductPage({ params }: Props) 
               </h1>
               <p className="text-gray-600 leading-relaxed mb-8">{product.description}</p>
 
-              <div className="flex flex-wrap gap-3">
-                <a
-                  href="#order"
-                  className="inline-flex items-center gap-2 bg-brand text-white px-6 py-3 rounded-lg font-semibold hover:bg-brand-dark transition-colors"
-                >
-                  Запросить цену
-                </a>
-                <Link
-                  href="/contacts"
-                  className="inline-flex items-center gap-2 border border-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:border-brand hover:text-brand transition-colors"
-                >
-                  Задать вопрос
-                </Link>
-              </div>
+              {hasModelsWithPrices(product) ? (
+                <ProductOrderBlock
+                  productSlug={product.slug}
+                  categorySlug={product.categorySlug}
+                  productName={product.shortName}
+                  models={product.models!.filter((m) => m.price > 0)}
+                  standard={product.standard}
+                />
+              ) : (
+                <div className="flex flex-wrap gap-3">
+                  <a
+                    href="#order"
+                    className="inline-flex items-center gap-2 bg-brand text-white px-6 py-3 rounded-lg font-semibold hover:bg-brand-dark transition-colors"
+                  >
+                    Запросить цену
+                  </a>
+                  <Link
+                    href="/contacts"
+                    className="inline-flex items-center gap-2 border border-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:border-brand hover:text-brand transition-colors"
+                  >
+                    Задать вопрос
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Технические характеристики */}
+      {/* Технические характеристики + Описание */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12">
@@ -118,10 +177,20 @@ export default async function MeasuringInstrumentProductPage({ params }: Props) 
             </div>
 
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Область применения</h2>
-              <p className="text-gray-600 leading-relaxed mb-6">{product.application}</p>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Описание</h2>
+              {product.fullDescription ? (
+                <div className="space-y-4">
+                  {product.fullDescription.map((paragraph, i) => (
+                    <p key={i} className="text-gray-600 leading-relaxed text-sm">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-gray-600 leading-relaxed">{product.application}</p>
+              )}
 
-              <div className="bg-brand/5 border border-brand/20 rounded-xl p-5">
+              <div className="bg-brand/5 border border-brand/20 rounded-xl p-5 mt-8">
                 <p className="text-sm font-semibold text-gray-900 mb-1">
                   Нужны точные характеристики?
                 </p>
@@ -140,6 +209,45 @@ export default async function MeasuringInstrumentProductPage({ params }: Props) 
           </div>
         </div>
       </section>
+
+      {/* Доступные модели */}
+      {product.models && product.models.length > 0 && (
+        <section className="py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Доступные модели</h2>
+            {hasModelsWithPrices(product) ? (
+              <ModelsTableWithCart
+                models={product.models}
+                productSlug={product.slug}
+                categorySlug={product.categorySlug}
+                productName={product.shortName}
+              />
+            ) : (
+              <div className="bg-white border border-gray-100 rounded-xl overflow-hidden">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="bg-gray-50 border-b border-gray-100">
+                      <th className="px-4 py-3 text-left font-semibold text-gray-700">Наименование</th>
+                      <th className="px-4 py-3 text-right font-semibold text-gray-700 w-40">Цена деления</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {product.models.map((model, index) => (
+                      <tr
+                        key={model.name}
+                        className={`border-b border-gray-50 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}
+                      >
+                        <td className="px-4 py-3 text-gray-700">{model.name}</td>
+                        <td className="px-4 py-3 text-gray-600 text-right">{model.division}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* Форма заявки */}
       <section id="order" className="py-16">
@@ -189,9 +297,19 @@ export default async function MeasuringInstrumentProductPage({ params }: Props) 
                   href={`/products/izmeritelnye-instrumenty/${p.slug}`}
                   className="group block bg-white border border-gray-100 rounded-xl p-6 hover:shadow-md hover:border-brand/30 transition-all"
                 >
-                  <div className="w-full aspect-[4/3] bg-gray-100 rounded-lg mb-4 flex items-center justify-center">
-                    <i className="ri-ruler-line text-gray-300 text-4xl" />
-                  </div>
+                  {p.images && p.images.length > 0 ? (
+                    <div className="w-full aspect-[4/3] bg-gray-50 rounded-lg mb-4 overflow-hidden border border-gray-100">
+                      <img
+                        src={p.images[0]}
+                        alt={p.shortName}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-full aspect-[4/3] bg-gray-100 rounded-lg mb-4 flex items-center justify-center">
+                      <i className="ri-ruler-line text-gray-300 text-4xl" />
+                    </div>
+                  )}
                   <h3 className="text-sm font-semibold text-gray-900 group-hover:text-brand transition-colors leading-snug">
                     {p.name}
                   </h3>

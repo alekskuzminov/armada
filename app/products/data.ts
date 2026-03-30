@@ -6,15 +6,25 @@ export type ProductSpec = {
   value: string;
 };
 
+export type ProductModel = {
+  name: string;     // полное наименование модели
+  sku: string;      // артикул
+  division: string; // цена деления
+  price: number;    // цена в копейках с НДС (0 = цена по запросу)
+};
+
 export type Product = {
   slug: string;
   name: string;
   shortName: string;
   categorySlug: string;
-  description: string;
+  description: string;         // краткое описание (hero)
+  fullDescription?: string[];  // абзацы развёрнутого описания
   specs: ProductSpec[];
   application: string;
-  standard?: string; // ГОСТ, ТУ, ОСТ
+  models?: ProductModel[];     // таблица доступных моделей
+  standard?: string;           // ГОСТ, ТУ, ОСТ
+  images?: string[];           // пути к изображениям относительно /public
 };
 
 export type Category = {
@@ -33,17 +43,36 @@ export const measuringInstruments: Product[] = [
     shortName: 'ШЦРТ I тип',
     categorySlug: 'izmeritelnye-instrumenty',
     description:
-      'Штангенциркуль разметочный с твёрдосплавными губками I типа для точной разметки деталей. Обеспечивает надёжную разметку на металлических и закалённых поверхностях.',
+      'Данный инструмент позволяет производить разметку по любым сталям, в том числе закалённым, без износа самого инструмента.',
+    fullDescription: [
+      'На штангенциркулях ШЦРТ имеются заострённые напайные пластины из твердосплавного сплава ВК8, что позволяет выполнять разметочные работы по различным твёрдым поверхностям.',
+      'В связи с тем, что разметочные поверхности выполнены из твёрдого сплава, срок службы данного инструмента по сравнению со штангенциркулями с обычными закалёнными губками возрастает в разы.',
+      'В отличие от китайских аналогов, у нашей продукции твердосплавные пластины не приклеиваются, а впаиваются в предварительно подготовленные пазы на губках штангенциркуля, что также существенно повышает срок службы изделия и полностью исключает возможность отпадывания твердосплавных пластин от губок штангенциркуля.',
+      'После напайки твердосплавных пластин штангенциркули полностью соответствуют точностным характеристикам согласно ГОСТ 166-89 и без труда проходят калибровку.',
+    ],
     specs: [
-      { label: 'Тип', value: 'I' },
-      { label: 'Материал губок', value: 'Твёрдый сплав' },
-      { label: 'Диапазон измерений', value: 'Уточнить у менеджера' },
-      { label: 'Точность отсчёта', value: 'Уточнить у менеджера' },
-      { label: 'Стандарт', value: 'ТУ' },
+      { label: 'Тип', value: 'I (нониусный)' },
+      { label: 'Шаг деления', value: '0,05 / 0,1 мм' },
+      { label: 'Материал штанги', value: 'Инструментальная сталь' },
+      { label: 'Материал губок', value: 'ВК8 (твёрдый сплав)' },
+      { label: 'Твёрдость разметочных губок', value: 'HRA 88,0' },
+      { label: 'Стандарт', value: 'ГОСТ 166-89' },
     ],
     application:
       'Разметка деталей из закалённой стали, чугуна и твёрдых сплавов в машиностроении и инструментальном производстве.',
-    standard: 'ТУ',
+    models: [
+      { name: 'Штангенциркуль ШЦРТ-I-125 0,1',  sku: 'SHCRT-I-125-01',  division: '0,1 мм',  price: 523800 },
+      { name: 'Штангенциркуль ШЦРТ-I-125 0,05', sku: 'SHCRT-I-125-005', division: '0,05 мм', price: 523800 },
+      { name: 'Штангенциркуль ШЦРТ-I-150 0,1',  sku: 'SHCRT-I-150-01',  division: '0,1 мм',  price: 523800 },
+      { name: 'Штангенциркуль ШЦРТ-I-150 0,05', sku: 'SHCRT-I-150-005', division: '0,05 мм', price: 523800 },
+    ],
+    standard: 'ГОСТ 166-89',
+    images: [
+      '/images/measuring-instruments/shtsrt-type-1/shzrt-1-type.webp',
+      '/images/measuring-instruments/shtsrt-type-1/shzrt-1-type-1.webp',
+      '/images/measuring-instruments/shtsrt-type-1/shzrt-1-type-2.webp',
+      '/images/measuring-instruments/shtsrt-type-1/shzrt-1-type-3.webp',
+    ],
   },
   {
     slug: 'shtsrt-s-verhnimi-gubkami-tip-2',
@@ -62,6 +91,10 @@ export const measuringInstruments: Product[] = [
     application:
       'Разметка наружных поверхностей, нанесение рисок по контуру при изготовлении и слесарной обработке деталей.',
     standard: 'ТУ',
+    images: [
+      '/images/measuring-instruments/shtsrt-type-2-top/shzrt-2-type-verh-gub.webp',
+      '/images/measuring-instruments/shtsrt-type-2-top/shzrt-2-type-verh-gub-1.webp',
+    ],
   },
   {
     slug: 'shtsrt-s-nizhnimi-gubkami-tip-2',
@@ -80,6 +113,11 @@ export const measuringInstruments: Product[] = [
     application:
       'Разметка внутренних поверхностей, отверстий, пазов при слесарных и механосборочных работах.',
     standard: 'ТУ',
+    images: [
+      '/images/measuring-instruments/shtsrt-type-2-bottom/shzrt-2-type-niizh-gub.webp',
+      '/images/measuring-instruments/shtsrt-type-2-bottom/shzrt-2-type-niizh-gub-1.webp',
+      '/images/measuring-instruments/shtsrt-type-2-bottom/shzrt-2-type-niizh-gub-2.webp',
+    ],
   },
   {
     slug: 'shtsrt-s-nizhnimi-i-verhnimi-gubkami-tip-2',
@@ -98,6 +136,10 @@ export const measuringInstruments: Product[] = [
     application:
       'Универсальная разметка наружных и внутренних поверхностей в инструментальном и серийном производстве.',
     standard: 'ТУ',
+    images: [
+      '/images/measuring-instruments/shtsrt-type-2-both/shzrt-2-type-nizh-verh-gub.webp',
+      '/images/measuring-instruments/shtsrt-type-2-both/shzrt-2-type-nizh-verh-gub-1.webp',
+    ],
   },
   {
     slug: 'shtsrt-s-gubkami-tip-3',
@@ -116,6 +158,12 @@ export const measuringInstruments: Product[] = [
     application:
       'Специальные разметочные операции на закалённых деталях, сплавах высокой твёрдости в инструментальных цехах.',
     standard: 'ТУ',
+    images: [
+      '/images/measuring-instruments/shtsrt-type-3/shzrt-3-type.webp',
+      '/images/measuring-instruments/shtsrt-type-3/shzrt-3-type-1.webp',
+      '/images/measuring-instruments/shtsrt-type-3/shzrt-3-type-2.webp',
+      '/images/measuring-instruments/shtsrt-type-3/shzrt-3-type-3.webp',
+    ],
   },
   {
     slug: 'shtangentsirkul-putevoj-pshv',
@@ -134,6 +182,9 @@ export const measuringInstruments: Product[] = [
     application:
       'Измерение геометрических параметров элементов железнодорожного пути, стрелочных переводов, рельсов.',
     standard: 'ТУ',
+    images: [
+      '/images/measuring-instruments/shtangentsirkul-pshv/pshv.webp',
+    ],
   },
   {
     slug: 'shablon-universalnyj-00316a',
@@ -152,6 +203,10 @@ export const measuringInstruments: Product[] = [
     application:
       'Операционный контроль геометрических параметров деталей в механообрабатывающих цехах, ОТК.',
     standard: 'ТУ',
+    images: [
+      '/images/measuring-instruments/shablon-00316a/shablon-universal.webp',
+      '/images/measuring-instruments/shablon-00316a/shablon-universal-1.webp',
+    ],
   },
   {
     slug: 'spetsialnyj-izmeritelnyj-instrument',
@@ -170,6 +225,9 @@ export const measuringInstruments: Product[] = [
     application:
       'Контроль уникальных или нестандартных деталей на машиностроительных предприятиях. Разработка и изготовление — под ваш чертёж.',
     standard: 'По ТЗ',
+    images: [
+      '/images/measuring-instruments/spetspribory/special-shablon.webp',
+    ],
   },
 ];
 
@@ -270,4 +328,19 @@ export function getCategoryBySlug(slug: string): Category | undefined {
 export function getProductBySlug(categorySlug: string, productSlug: string): Product | undefined {
   const category = getCategoryBySlug(categorySlug);
   return category?.products.find((p) => p.slug === productSlug);
+}
+
+// Форматирование цены из копеек в строку "5 238 ₽"
+export function formatPrice(kopecks: number): string {
+  return new Intl.NumberFormat('ru-RU', {
+    style: 'currency',
+    currency: 'RUB',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(kopecks / 100);
+}
+
+// Проверяет, есть ли у товара модели с ценами
+export function hasModelsWithPrices(product: Product): boolean {
+  return !!product.models?.some((m) => m.price > 0);
 }

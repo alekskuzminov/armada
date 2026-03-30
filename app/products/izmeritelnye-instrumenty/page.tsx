@@ -42,10 +42,19 @@ export default function MeasuringInstrumentsPage() {
                 href={`/products/izmeritelnye-instrumenty/${product.slug}`}
                 className="group block bg-white border border-gray-100 rounded-xl p-6 hover:shadow-md hover:border-brand/30 transition-all"
               >
-                {/* Заглушка изображения — заменить на реальное */}
-                <div className="w-full aspect-[4/3] bg-gray-100 rounded-lg mb-4 flex items-center justify-center">
-                  <i className="ri-ruler-line text-gray-300 text-5xl" />
-                </div>
+                {product.images && product.images.length > 0 ? (
+                  <div className="w-full aspect-[4/3] bg-gray-50 rounded-lg mb-4 overflow-hidden border border-gray-100">
+                    <img
+                      src={product.images[0]}
+                      alt={product.shortName}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                ) : (
+                  <div className="w-full aspect-[4/3] bg-gray-100 rounded-lg mb-4 flex items-center justify-center">
+                    <i className="ri-ruler-line text-gray-300 text-5xl" />
+                  </div>
+                )}
                 <h2 className="text-base font-semibold text-gray-900 mb-2 group-hover:text-brand transition-colors leading-snug">
                   {product.name}
                 </h2>

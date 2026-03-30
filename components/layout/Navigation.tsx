@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useModal } from '@/components/shared/ModalContext';
+import { useCart } from '@/components/shared/CartContext';
 import { categories } from '@/app/products/data';
 
 export default function Navigation() {
@@ -18,6 +19,7 @@ export default function Navigation() {
   const [headerHeight, setHeaderHeight] = useState(0);
   const pathname = usePathname();
   const { open } = useModal();
+  const { totalItems, openDrawer: openCart } = useCart();
   const headerRef = useRef<HTMLElement | null>(null);
 
   // Только маршруты, где hero имеет тёмный фон (фоновое изображение с оверлеем).
@@ -290,6 +292,19 @@ export default function Navigation() {
                 </Link>
 
                 <button
+                  onClick={openCart}
+                  className={`relative p-2 transition-colors hover:text-brand ${textClass}`}
+                  aria-label="Корзина"
+                >
+                  <i className="ri-shopping-cart-line text-xl" />
+                  {totalItems > 0 && (
+                    <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-brand text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                      {totalItems > 99 ? '99+' : totalItems}
+                    </span>
+                  )}
+                </button>
+
+                <button
                   onClick={handleConsultation}
                   className="whitespace-nowrap rounded-lg bg-brand px-6 py-3 font-medium text-white transition-colors hover:bg-brand-dark"
                 >
@@ -297,14 +312,28 @@ export default function Navigation() {
                 </button>
               </div>
 
-              {/* Mobile burger */}
-              <button
-                className={`p-2 transition-colors lg:hidden ${textClass}`}
-                onClick={() => setIsMobileOpen(!isMobileOpen)}
-                aria-label="Открыть меню"
-              >
-                <i className={`text-2xl ${isMobileOpen ? 'ri-close-line' : 'ri-menu-line'}`} />
-              </button>
+              {/* Mobile: корзина + бургер */}
+              <div className="flex items-center gap-2 lg:hidden">
+                <button
+                  onClick={openCart}
+                  className={`relative p-2 transition-colors hover:text-brand ${textClass}`}
+                  aria-label="Корзина"
+                >
+                  <i className="ri-shopping-cart-line text-xl" />
+                  {totalItems > 0 && (
+                    <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-brand text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                      {totalItems > 99 ? '99+' : totalItems}
+                    </span>
+                  )}
+                </button>
+                <button
+                  className={`p-2 transition-colors ${textClass}`}
+                  onClick={() => setIsMobileOpen(!isMobileOpen)}
+                  aria-label="Открыть меню"
+                >
+                  <i className={`text-2xl ${isMobileOpen ? 'ri-close-line' : 'ri-menu-line'}`} />
+                </button>
+              </div>
             </div>
 
             {/* Mobile menu */}

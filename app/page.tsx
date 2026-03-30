@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import HeroSection from './(home)/HeroSection';
 import ContactFormBlock from '@/components/shared/ContactFormBlock';
+import WatermarkOverlay from '@/components/shared/WatermarkOverlay';
 
 const advantages = [
   {
@@ -336,12 +337,13 @@ export default function HomePage() {
                   key={part.alt}
                   className="rounded-xl overflow-hidden shadow-sm border border-gray-100 group"
                 >
-                  <div className="aspect-square overflow-hidden">
+                  <div className="relative aspect-square overflow-hidden">
                     <img
                       src={part.src}
                       alt={part.alt}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
+                    <WatermarkOverlay />
                   </div>
                   <div className="p-4 bg-white">
                     <p className="text-sm font-medium text-gray-900">{part.alt}</p>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import WatermarkOverlay from './WatermarkOverlay';
 
 export interface GalleryImage {
   src: string;
@@ -11,7 +12,7 @@ export interface GalleryImage {
 
 interface GalleryProps {
   images: GalleryImage[];
-  layout?: 'fullwidth' | 'sidebyside';
+  layout?: 'fullwidth' | 'sidebyside' | 'product';
 }
 
 export default function Gallery({ images, layout = 'fullwidth' }: GalleryProps) {
@@ -20,16 +21,67 @@ export default function Gallery({ images, layout = 'fullwidth' }: GalleryProps) 
   const prev = () => setCurrent((c) => (c - 1 + images.length) % images.length);
   const next = () => setCurrent((c) => (c + 1) % images.length);
 
+  // Галерея для страниц продукта: большое фото + превью снизу
+  if (layout === 'product') {
+    return (
+      <div>
+        <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-gray-50 border border-gray-100 mb-3">
+          <img
+            src={images[current].src}
+            alt={images[current].alt}
+            className="w-full h-full object-contain transition-all duration-300"
+          />
+          {images.length > 1 && (
+            <>
+              <button
+                onClick={prev}
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/90 hover:bg-white rounded-full shadow-md flex items-center justify-center transition-all"
+                aria-label="Предыдущее"
+              >
+                <i className="ri-arrow-left-s-line text-lg text-gray-700" />
+              </button>
+              <button
+                onClick={next}
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/90 hover:bg-white rounded-full shadow-md flex items-center justify-center transition-all"
+                aria-label="Следующее"
+              >
+                <i className="ri-arrow-right-s-line text-lg text-gray-700" />
+              </button>
+            </>
+          )}
+        </div>
+        {images.length > 1 && (
+          <div className="grid grid-cols-4 gap-2">
+            {images.map((img, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                className={`relative aspect-[4/3] rounded-lg overflow-hidden bg-gray-50 border transition-all ${
+                  i === current
+                    ? 'border-brand'
+                    : 'border-gray-100 opacity-55 hover:opacity-90'
+                }`}
+              >
+                <img src={img.src} alt={img.alt} className="w-full h-full object-contain" />
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
+
   if (layout === 'sidebyside') {
     return (
       <div className="grid lg:grid-cols-2 gap-8 mb-8">
         <div className="relative">
-          <div className="w-full h-[380px] rounded-xl overflow-hidden bg-gray-100">
+          <div className="relative w-full h-[380px] rounded-xl overflow-hidden bg-gray-100">
             <img
               src={images[current].src}
               alt={images[current].alt}
               className="w-full h-full object-cover object-top"
             />
+            <WatermarkOverlay />
           </div>
           <button
             onClick={prev}
@@ -81,6 +133,7 @@ export default function Gallery({ images, layout = 'fullwidth' }: GalleryProps) 
           className="w-full h-full object-cover object-top transition-all duration-500"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+        <WatermarkOverlay />
         <div className="absolute bottom-5 left-6 text-white">
           <p className="text-base font-semibold">{images[current].alt}</p>
           <p className="text-sm text-white/70">
