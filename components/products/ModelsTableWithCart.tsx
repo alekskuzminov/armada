@@ -17,7 +17,7 @@ export default function ModelsTableWithCart({
   categorySlug,
   productName,
 }: ModelsTableWithCartProps) {
-  const { addItem } = useCart();
+  const { addItem, openDrawer } = useCart();
   const [addedSku, setAddedSku] = useState<string | null>(null);
 
   const showDivision = models.some((m) => m.division !== '');
@@ -32,6 +32,7 @@ export default function ModelsTableWithCart({
       price: model.price,
     });
     setAddedSku(model.sku);
+    openDrawer();
     setTimeout(() => setAddedSku(null), 2000);
   };
 

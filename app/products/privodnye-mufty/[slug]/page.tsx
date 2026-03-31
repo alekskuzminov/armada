@@ -178,22 +178,6 @@ export default async function DriveCouplingsProductPage({ params }: Props) {
                   </tbody>
                 </table>
               </div>
-
-              <div className="bg-brand/5 border border-brand/20 rounded-xl p-5">
-                <p className="text-sm font-semibold text-gray-900 mb-1">
-                  Нужны точные характеристики?
-                </p>
-                <p className="text-sm text-gray-600 mb-4">
-                  Предоставим полный паспорт изделия и актуальные цены по запросу.
-                </p>
-                <a
-                  href="#order"
-                  className="inline-flex items-center gap-1 text-sm font-medium text-brand hover:underline"
-                >
-                  Запросить документацию
-                  <i className="ri-arrow-right-line" />
-                </a>
-              </div>
             </div>
 
             <div>
@@ -209,10 +193,92 @@ export default async function DriveCouplingsProductPage({ params }: Props) {
               ) : (
                 <p className="text-gray-600 leading-relaxed">{product.application}</p>
               )}
+
+              <div className="mt-6 bg-brand/5 border border-brand/20 rounded-xl p-5">
+                <p className="text-sm font-semibold text-gray-900 mb-1">
+                  Нужны точные характеристики?
+                </p>
+                <p className="text-sm text-gray-600 mb-4">
+                  Предоставим полный паспорт изделия и актуальные цены по запросу.
+                </p>
+                <a
+                  href="#order"
+                  className="inline-flex items-center gap-1 text-sm font-medium text-brand hover:underline"
+                >
+                  Запросить документацию
+                  <i className="ri-arrow-right-line" />
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Типоразмерный ряд */}
+      {product.assortmentTable && (
+        <section className="py-16 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              {product.assortmentTable.title}
+            </h2>
+            <p className="text-sm text-gray-500 mb-6">
+              Прокрутите таблицу горизонтально, чтобы увидеть все параметры
+            </p>
+            <div className="overflow-x-auto rounded-xl border border-gray-100 shadow-sm">
+              <table className="w-full text-xs min-w-[900px]">
+                <thead>
+                  <tr className="bg-gray-50 border-b border-gray-200">
+                    {product.assortmentTable.headers.map((header, i) => (
+                      <th
+                        key={i}
+                        className={`px-3 py-3 font-semibold text-gray-700 whitespace-nowrap ${
+                          i === 0 ? 'text-left' : 'text-center'
+                        }`}
+                      >
+                        {header}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {product.assortmentTable.rows.map((row, ri) => (
+                    <tr
+                      key={ri}
+                      className={`border-b border-gray-50 ${
+                        ri % 2 === 0 ? 'bg-white' : 'bg-gray-50/40'
+                      }`}
+                    >
+                      {row.map((cell, ci) => (
+                        <td
+                          key={ci}
+                          className={`px-3 py-2.5 text-gray-600 align-top leading-relaxed ${
+                            ci === 0
+                              ? 'font-medium text-gray-800 whitespace-nowrap'
+                              : ci === 2
+                              ? 'text-center max-w-[160px]'
+                              : 'text-center whitespace-nowrap'
+                          }`}
+                        >
+                          {ci === 2 && cell !== '—'
+                            ? cell.split('; ').map((v, j) => (
+                                <span key={j} className="block">
+                                  {v}
+                                </span>
+                              ))
+                            : cell}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="text-xs text-gray-400 mt-3">
+              * «—» означает, что параметр уточняется в зависимости от исполнения. Для подбора конкретного типоразмера обратитесь к менеджеру.
+            </p>
+          </div>
+        </section>
+      )}
 
       {/* Доступные модели */}
       {product.models && product.models.length > 0 && hasModelsWithPrices(product) && (

@@ -67,7 +67,7 @@ export default function ProductOrderBlock({
         <span className="text-3xl font-bold text-gray-900">
           {formatPrice(selected.price)}
         </span>
-        <span className="text-sm text-gray-500">(б/НДС)</span>
+        <span className="text-sm text-gray-500">(без НДС)</span>
       </div>
 
       {/* Бейдж ГОСТ / ТУ */}
