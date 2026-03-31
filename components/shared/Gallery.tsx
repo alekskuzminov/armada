@@ -25,7 +25,7 @@ export default function Gallery({ images, layout = 'fullwidth' }: GalleryProps) 
   if (layout === 'product') {
     return (
       <div>
-        <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-gray-50 border border-gray-100 mb-3">
+        <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-gray-50 border border-gray-100 mb-3">
           <img
             src={images[current].src}
             alt={images[current].alt}
@@ -51,12 +51,12 @@ export default function Gallery({ images, layout = 'fullwidth' }: GalleryProps) 
           )}
         </div>
         {images.length > 1 && (
-          <div className="grid grid-cols-4 gap-2">
+          <div className="flex gap-2">
             {images.map((img, i) => (
               <button
                 key={i}
                 onClick={() => setCurrent(i)}
-                className={`relative aspect-[4/3] rounded-lg overflow-hidden bg-gray-50 border transition-all ${
+                className={`relative h-16 w-16 flex-shrink-0 rounded-lg overflow-hidden bg-gray-50 border transition-all ${
                   i === current
                     ? 'border-brand'
                     : 'border-gray-100 opacity-55 hover:opacity-90'

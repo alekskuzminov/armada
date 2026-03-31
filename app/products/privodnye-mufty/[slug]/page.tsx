@@ -3,7 +3,10 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Breadcrumbs from '@/components/shared/Breadcrumbs';
 import ContactFormBlock from '@/components/shared/ContactFormBlock';
-import { driveCouplings, getProductBySlug } from '../../data';
+import Gallery from '@/components/shared/Gallery';
+import ProductOrderBlock from '@/components/products/ProductOrderBlock';
+import ModelsTableWithCart from '@/components/products/ModelsTableWithCart';
+import { driveCouplings, getProductBySlug, hasModelsWithPrices } from '../../data';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -40,8 +43,44 @@ export default async function DriveCouplingsProductPage({ params }: Props) {
   // Похожие товары (остальные в категории, кроме текущего)
   const related = driveCouplings.filter((p) => p.slug !== slug);
 
+  // JSON-LD Schema.org
+  const modelsWithPrices = product.models?.filter((m) => m.price > 0) ?? [];
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    description: product.description,
+    ...(product.images?.[0] && { image: `https://armada-cnc.ru${product.images[0]}` }),
+    brand: { '@type': 'Brand', name: 'Армада' },
+    manufacturer: { '@type': 'Organization', name: 'Армада' },
+    ...(modelsWithPrices.length > 0 && {
+      offers: modelsWithPrices.length === 1
+        ? {
+            '@type': 'Offer',
+            priceCurrency: 'RUB',
+            price: modelsWithPrices[0].price / 100,
+            availability: 'https://schema.org/InStock',
+            seller: { '@type': 'Organization', name: 'Армада' },
+          }
+        : {
+            '@type': 'AggregateOffer',
+            priceCurrency: 'RUB',
+            lowPrice: Math.min(...modelsWithPrices.map((m) => m.price / 100)),
+            highPrice: Math.max(...modelsWithPrices.map((m) => m.price / 100)),
+            offerCount: modelsWithPrices.length,
+            availability: 'https://schema.org/InStock',
+          },
+    }),
+  };
+
   return (
     <>
+      {/* JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       {/* Hero */}
       <section className="py-10 lg:py-14 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -54,37 +93,61 @@ export default async function DriveCouplingsProductPage({ params }: Props) {
           />
 
           <div className="grid lg:grid-cols-2 gap-10 mt-4 items-start">
-            {/* Заглушка изображения — заменить на реальное */}
-            <div className="w-full aspect-[4/3] bg-gray-100 rounded-xl flex flex-col items-center justify-center gap-3">
-              <i className="ri-settings-2-line text-gray-300 text-6xl" />
-              <p className="text-xs text-gray-400">Изображение товара</p>
-            </div>
+            {product.images && product.images.length > 0 ? (
+              <Gallery
+                layout="product"
+                images={product.images.map((src, i) => ({
+                  src,
+                  alt: `${product.shortName} — фото ${i + 1}`,
+                }))}
+              />
+            ) : (
+              <div className="w-full aspect-square bg-gray-100 rounded-xl flex flex-col items-center justify-center gap-3">
+                <i className="ri-settings-2-line text-gray-300 text-6xl" />
+                <p className="text-xs text-gray-400">Изображение товара</p>
+              </div>
+            )}
 
             <div>
-              {product.standard && (
-                <p className="text-sm font-semibold uppercase tracking-widest text-brand mb-2">
-                  {product.standard}
-                </p>
-              )}
               <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4 leading-tight">
                 {product.name}
               </h1>
-              <p className="text-gray-600 leading-relaxed mb-8">{product.description}</p>
+              <p className="text-gray-600 leading-relaxed mb-4">{product.description}</p>
 
-              <div className="flex flex-wrap gap-3">
-                <a
-                  href="#order"
-                  className="inline-flex items-center gap-2 bg-brand text-white px-6 py-3 rounded-lg font-semibold hover:bg-brand-dark transition-colors"
-                >
-                  Запросить цену
-                </a>
-                <Link
-                  href="/contacts"
-                  className="inline-flex items-center gap-2 border border-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:border-brand hover:text-brand transition-colors"
-                >
-                  Задать вопрос
-                </Link>
-              </div>
+              {product.note && (
+                <p className="text-sm text-gray-600 italic border border-gray-200 rounded-lg px-4 py-3 mb-6 leading-relaxed">
+                  *{product.note.split(/\*\*(.*?)\*\*/g).map((part, i) =>
+                    i % 2 === 1
+                      ? <strong key={i} className="font-bold not-italic text-gray-900">{part}</strong>
+                      : part
+                  )}
+                </p>
+              )}
+
+              {hasModelsWithPrices(product) ? (
+                <ProductOrderBlock
+                  productSlug={product.slug}
+                  categorySlug={product.categorySlug}
+                  productName={product.shortName}
+                  models={product.models!.filter((m) => m.price > 0)}
+                  standard={product.standard}
+                />
+              ) : (
+                <div className="flex flex-wrap gap-3">
+                  <a
+                    href="#order"
+                    className="inline-flex items-center gap-2 bg-brand text-white px-6 py-3 rounded-lg font-semibold hover:bg-brand-dark transition-colors"
+                  >
+                    Запросить цену
+                  </a>
+                  <Link
+                    href="/contacts"
+                    className="inline-flex items-center gap-2 border border-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:border-brand hover:text-brand transition-colors"
+                  >
+                    Задать вопрос
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -96,7 +159,7 @@ export default async function DriveCouplingsProductPage({ params }: Props) {
           <div className="grid lg:grid-cols-2 gap-12">
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Технические характеристики</h2>
-              <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+              <div className="bg-white rounded-xl border border-gray-100 overflow-hidden mb-6">
                 <table className="w-full text-sm">
                   <tbody>
                     {product.specs.map((spec, index) => (
@@ -115,11 +178,6 @@ export default async function DriveCouplingsProductPage({ params }: Props) {
                   </tbody>
                 </table>
               </div>
-            </div>
-
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Область применения</h2>
-              <p className="text-gray-600 leading-relaxed mb-6">{product.application}</p>
 
               <div className="bg-brand/5 border border-brand/20 rounded-xl p-5">
                 <p className="text-sm font-semibold text-gray-900 mb-1">
@@ -137,9 +195,39 @@ export default async function DriveCouplingsProductPage({ params }: Props) {
                 </a>
               </div>
             </div>
+
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Описание</h2>
+              {product.fullDescription ? (
+                <div className="space-y-3">
+                  {product.fullDescription.map((paragraph, i) => (
+                    <p key={i} className="text-gray-600 leading-relaxed text-sm">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-gray-600 leading-relaxed">{product.application}</p>
+              )}
+            </div>
           </div>
         </div>
       </section>
+
+      {/* Доступные модели */}
+      {product.models && product.models.length > 0 && hasModelsWithPrices(product) && (
+        <section className="py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Доступные модели</h2>
+            <ModelsTableWithCart
+              models={product.models}
+              productSlug={product.slug}
+              categorySlug={product.categorySlug}
+              productName={product.shortName}
+            />
+          </div>
+        </section>
+      )}
 
       {/* Форма заявки */}
       <section id="order" className="py-16">
@@ -189,9 +277,19 @@ export default async function DriveCouplingsProductPage({ params }: Props) {
                   href={`/products/privodnye-mufty/${p.slug}`}
                   className="group block bg-white border border-gray-100 rounded-xl p-6 hover:shadow-md hover:border-brand/30 transition-all"
                 >
-                  <div className="w-full aspect-[4/3] bg-gray-100 rounded-lg mb-4 flex items-center justify-center">
-                    <i className="ri-settings-2-line text-gray-300 text-4xl" />
-                  </div>
+                  {p.images && p.images.length > 0 ? (
+                    <div className="w-full aspect-square bg-gray-50 rounded-lg mb-4 overflow-hidden border border-gray-100">
+                      <img
+                        src={p.images[0]}
+                        alt={p.shortName}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-full aspect-square bg-gray-100 rounded-lg mb-4 flex items-center justify-center">
+                      <i className="ri-settings-2-line text-gray-300 text-4xl" />
+                    </div>
+                  )}
                   <h3 className="text-sm font-semibold text-gray-900 group-hover:text-brand transition-colors leading-snug">
                     {p.name}
                   </h3>

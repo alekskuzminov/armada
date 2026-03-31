@@ -9,7 +9,12 @@
       "Bash(git status)",
       "Bash(git log:*)",
       "Bash(git diff:*)",
-      "WebFetch(domain:armadaprom.ru)"
+      "WebFetch(domain:armadaprom.ru)",
+      "Bash(xxd)",
+      "Bash(cat /c/Users/User/Desktop/armada/app/products/izmeri*telnye-instrumenty/page.tsx)",
+      "Bash(cat /c/Users/User/Desktop/armada/app/products/izmeri*telnye-instrumenty/[slug]/page.tsx)",
+      "Bash(sed -n '60,150p' \"/c/Users/User/Desktop/armada/app/products/izmeri­telnye-instrumenty/[slug]/page.tsx\")",
+      "Bash(sed -n '60,150p' /c/Users/User/Desktop/armada/app/products/izmeri?telnye-instrumenty/[slug]/page.tsx)"
     ]
   }
 }

@@ -103,7 +103,7 @@ export default async function MeasuringInstrumentProductPage({ params }: Props) 
                 }))}
               />
             ) : (
-              <div className="w-full aspect-[4/3] bg-gray-100 rounded-xl flex flex-col items-center justify-center gap-3">
+              <div className="w-full aspect-square bg-gray-100 rounded-xl flex flex-col items-center justify-center gap-3">
                 <i className="ri-ruler-line text-gray-300 text-6xl" />
                 <p className="text-xs text-gray-400">Изображение товара</p>
               </div>
@@ -298,7 +298,7 @@ export default async function MeasuringInstrumentProductPage({ params }: Props) 
                   className="group block bg-white border border-gray-100 rounded-xl p-6 hover:shadow-md hover:border-brand/30 transition-all"
                 >
                   {p.images && p.images.length > 0 ? (
-                    <div className="w-full aspect-[4/3] bg-gray-50 rounded-lg mb-4 overflow-hidden border border-gray-100">
+                    <div className="w-full aspect-square bg-gray-50 rounded-lg mb-4 overflow-hidden border border-gray-100">
                       <img
                         src={p.images[0]}
                         alt={p.shortName}
@@ -306,7 +306,7 @@ export default async function MeasuringInstrumentProductPage({ params }: Props) 
                       />
                     </div>
                   ) : (
-                    <div className="w-full aspect-[4/3] bg-gray-100 rounded-lg mb-4 flex items-center justify-center">
+                    <div className="w-full aspect-square bg-gray-100 rounded-lg mb-4 flex items-center justify-center">
                       <i className="ri-ruler-line text-gray-300 text-4xl" />
                     </div>
                   )}

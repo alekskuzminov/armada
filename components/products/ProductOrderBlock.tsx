@@ -70,8 +70,8 @@ export default function ProductOrderBlock({
         <span className="text-sm text-gray-500">(б/НДС)</span>
       </div>
 
-      {/* Бейдж ГОСТ */}
-      {standard?.startsWith('ГОСТ') && (
+      {/* Бейдж ГОСТ / ТУ */}
+      {(standard?.startsWith('ГОСТ') || standard?.startsWith('ТУ')) && (
         <div className="flex items-center gap-2 text-sm text-brand">
           <i className="ri-shield-check-line text-lg" />
           <span>Соответствует точностным характеристикам согласно {standard}</span>
@@ -100,6 +100,20 @@ export default function ProductOrderBlock({
           </>
         )}
       </button>
+
+      {/* Блок доверия */}
+      <div className="border-t border-gray-100 pt-5 space-y-3">
+        {[
+          { icon: 'ri-truck-line', text: 'Отгрузка в течение 1–3 рабочих дней' },
+          { icon: 'ri-bank-card-line', text: 'Оплата по безналичному расчёту, НДС' },
+          { icon: 'ri-customer-service-2-line', text: 'Ответим на вопросы — Пн–Пт с 9 до 20' },
+        ].map(({ icon, text }) => (
+          <div key={text} className="flex items-center gap-2.5 text-sm text-gray-500">
+            <i className={`${icon} text-base text-gray-400 flex-shrink-0`} />
+            {text}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

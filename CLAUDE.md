@@ -165,9 +165,7 @@ components/
 - **ecosystem.config.js:** `script: server.js`, `cwd: /var/www/armada/.next/standalone`, `PORT: 3000`
 
 ```bash
-npm run build
-# Скопировать public/ в .next/standalone/public/ и .next/static/ в .next/standalone/.next/static/
-pm2 restart armada
+cd /var/www/armada && git pull && npm ci && npm run build && cp -r public .next/standalone/public && cp -r .next/static .next/standalone/.next/static && pm2 restart armada
 ```
 
 ---

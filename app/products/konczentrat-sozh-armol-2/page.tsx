@@ -75,7 +75,7 @@ export default function CoolantConcentratePage() {
 
           <div className="grid lg:grid-cols-2 gap-10 mt-4 items-start">
             {/* Заглушка изображения — заменить на реальное */}
-            <div className="w-full aspect-[4/3] bg-gray-100 rounded-xl flex flex-col items-center justify-center gap-3">
+            <div className="w-full aspect-square bg-gray-100 rounded-xl flex flex-col items-center justify-center gap-3">
               <i className="ri-drop-line text-gray-300 text-6xl" />
               <p className="text-xs text-gray-400">Изображение товара</p>
             </div>

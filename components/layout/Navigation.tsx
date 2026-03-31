@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useModal } from '@/components/shared/ModalContext';
 import { useCart } from '@/components/shared/CartContext';
-import { categories } from '@/app/products/data';
+import { categories, type Product } from '@/app/products/data';
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -17,6 +17,9 @@ export default function Navigation() {
   const [closeTimeout, setCloseTimeoutState] = useState<ReturnType<typeof setTimeout> | null>(null);
   const [productsCloseTimeout, setProductsCloseTimeout] = useState<ReturnType<typeof setTimeout> | null>(null);
   const [headerHeight, setHeaderHeight] = useState(0);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<Product[]>([]);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const pathname = usePathname();
   const { open } = useModal();
   const { totalItems, openDrawer: openCart } = useCart();
@@ -81,6 +84,36 @@ export default function Navigation() {
 
   const handleConsultation = () => open();
 
+  const allProducts = categories.flatMap((c) => c.products);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const q = e.target.value;
+    setSearchQuery(q);
+    if (q.trim().length > 1) {
+      const lower = q.toLowerCase();
+      const results = allProducts
+        .filter(
+          (p) =>
+            p.name.toLowerCase().includes(lower) ||
+            p.shortName.toLowerCase().includes(lower)
+        )
+        .slice(0, 6);
+      setSearchResults(results);
+      setIsSearchOpen(true);
+    } else {
+      setSearchResults([]);
+      setIsSearchOpen(false);
+    }
+  };
+
+  const handleSearchBlur = () => {
+    setTimeout(() => setIsSearchOpen(false), 150);
+  };
+
+  const handleSearchFocus = () => {
+    if (searchResults.length > 0) setIsSearchOpen(true);
+  };
+
   const handleServicesEnter = () => {
     if (closeTimeout) clearTimeout(closeTimeout);
     setIsServicesOpen(true);
@@ -122,8 +155,9 @@ export default function Navigation() {
         }`}
       >
         <div className={`border-b px-4 py-2 text-sm transition-colors duration-300 ${topDividerClass}`}>
-          <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center gap-6">
+          <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+            {/* Левая часть: телефон + время */}
+            <div className="flex items-center gap-6 shrink-0">
               <a
                 href="tel:+74957890054"
                 className={`flex items-center gap-2 transition-colors hover:text-brand ${textClass}`}
@@ -133,6 +167,8 @@ export default function Navigation() {
               </a>
               <span className={`hidden sm:inline transition-colors ${mutedTextClass}`}>Пн-Пт с 9 до 20</span>
             </div>
+
+            {/* Центральная часть: email + адрес */}
             <div className="hidden md:flex items-center gap-6">
               <a
                 href="mailto:armadaprom@mail.ru"
@@ -145,6 +181,60 @@ export default function Navigation() {
                 <i className="ri-map-pin-line" />
                 <span>г. Киров, пер. Химический, д.1</span>
               </div>
+            </div>
+
+            {/* Правая часть: поиск + кнопка «Обсудить заказ» */}
+            <div className="hidden md:flex items-center gap-3 shrink-0">
+              {/* Поиск по каталогу */}
+              <div className="relative">
+                <div
+                  className={`flex items-center gap-2 rounded-md px-3 py-1.5 transition-colors ${
+                    isSolidHeader
+                      ? 'bg-neutral-100 border border-neutral-200 text-neutral-700'
+                      : 'bg-white/10 text-white/80'
+                  }`}
+                >
+                  <i className="ri-search-line shrink-0" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={handleSearchChange}
+                    onBlur={handleSearchBlur}
+                    onFocus={handleSearchFocus}
+                    placeholder="Поиск по каталогу"
+                    className={`w-48 lg:w-64 bg-transparent outline-none placeholder-current text-sm ${
+                      isSolidHeader ? 'text-neutral-700 placeholder-neutral-400' : 'text-white placeholder-white/60'
+                    }`}
+                  />
+                </div>
+
+                {/* Dropdown результатов */}
+                {isSearchOpen && (
+                  <div className="absolute top-full left-0 right-0 mt-1 rounded-lg border border-neutral-100 bg-white shadow-xl py-1 z-50">
+                    {searchResults.length > 0 ? (
+                      searchResults.map((product) => (
+                        <Link
+                          key={product.slug}
+                          href={`/products/${product.categorySlug}/${product.slug}`}
+                          className="block px-4 py-2.5 text-sm text-neutral-700 hover:bg-green-50 hover:text-brand leading-snug"
+                          onMouseDown={(e) => e.preventDefault()}
+                        >
+                          {product.name}
+                        </Link>
+                      ))
+                    ) : (
+                      <p className="px-4 py-3 text-sm text-neutral-400">Ничего не найдено</p>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              <button
+                onClick={handleConsultation}
+                className="whitespace-nowrap rounded-lg bg-brand px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-brand-dark"
+              >
+                Обсудить заказ
+              </button>
             </div>
           </div>
         </div>
@@ -229,7 +319,7 @@ export default function Navigation() {
                                 href={`/products/${activeProductCategory}/${product.slug}`}
                                 className="block px-4 py-3 text-sm text-neutral-700 transition-colors hover:bg-green-50 hover:text-brand leading-snug"
                               >
-                                {product.shortName}
+                                {product.name}
                               </Link>
                             ))}
                         </div>
@@ -293,22 +383,18 @@ export default function Navigation() {
 
                 <button
                   onClick={openCart}
-                  className={`relative p-2 transition-colors hover:text-brand ${textClass}`}
+                  className={`relative flex items-center gap-2 px-3 py-2 font-medium transition-colors hover:text-brand ${textClass}`}
                   aria-label="Корзина"
                 >
-                  <i className="ri-shopping-cart-line text-xl" />
-                  {totalItems > 0 && (
-                    <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-brand text-white text-[10px] font-bold rounded-full flex items-center justify-center">
-                      {totalItems > 99 ? '99+' : totalItems}
-                    </span>
-                  )}
-                </button>
-
-                <button
-                  onClick={handleConsultation}
-                  className="whitespace-nowrap rounded-lg bg-brand px-6 py-3 font-medium text-white transition-colors hover:bg-brand-dark"
-                >
-                  Обсудить заказ
+                  <span className="relative">
+                    <i className="ri-shopping-cart-line text-xl" />
+                    {totalItems > 0 && (
+                      <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-brand text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                        {totalItems > 99 ? '99+' : totalItems}
+                      </span>
+                    )}
+                  </span>
+                  <span>Корзина</span>
                 </button>
               </div>
 

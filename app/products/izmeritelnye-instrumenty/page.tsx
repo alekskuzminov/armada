@@ -43,7 +43,7 @@ export default function MeasuringInstrumentsPage() {
                 className="group block bg-white border border-gray-100 rounded-xl p-6 hover:shadow-md hover:border-brand/30 transition-all"
               >
                 {product.images && product.images.length > 0 ? (
-                  <div className="w-full aspect-[4/3] bg-gray-50 rounded-lg mb-4 overflow-hidden border border-gray-100">
+                  <div className="w-full aspect-square bg-gray-50 rounded-lg mb-4 overflow-hidden border border-gray-100">
                     <img
                       src={product.images[0]}
                       alt={product.shortName}
@@ -51,7 +51,7 @@ export default function MeasuringInstrumentsPage() {
                     />
                   </div>
                 ) : (
-                  <div className="w-full aspect-[4/3] bg-gray-100 rounded-lg mb-4 flex items-center justify-center">
+                  <div className="w-full aspect-square bg-gray-100 rounded-lg mb-4 flex items-center justify-center">
                     <i className="ri-ruler-line text-gray-300 text-5xl" />
                   </div>
                 )}

@@ -20,6 +20,8 @@ export default function ModelsTableWithCart({
   const { addItem } = useCart();
   const [addedSku, setAddedSku] = useState<string | null>(null);
 
+  const showDivision = models.some((m) => m.division !== '');
+
   const handleAdd = (model: ProductModel) => {
     addItem({
       productSlug,
@@ -39,7 +41,9 @@ export default function ModelsTableWithCart({
         <thead>
           <tr className="bg-gray-50 border-b border-gray-100">
             <th className="px-4 py-3 text-left font-semibold text-gray-700">Наименование</th>
-            <th className="px-4 py-3 text-right font-semibold text-gray-700 w-32">Цена деления</th>
+            {showDivision && (
+              <th className="px-4 py-3 text-right font-semibold text-gray-700 w-32">Цена деления</th>
+            )}
             <th className="px-4 py-3 text-right font-semibold text-gray-700 w-36">Цена</th>
             <th className="px-4 py-3 text-right font-semibold text-gray-700 w-36"></th>
           </tr>
@@ -51,7 +55,9 @@ export default function ModelsTableWithCart({
               className={`border-b border-gray-50 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}
             >
               <td className="px-4 py-3 text-gray-700">{model.name}</td>
-              <td className="px-4 py-3 text-gray-600 text-right">{model.division}</td>
+              {showDivision && (
+                <td className="px-4 py-3 text-gray-600 text-right">{model.division}</td>
+              )}
               <td className="px-4 py-3 text-gray-900 font-semibold text-right">
                 {model.price > 0 ? formatPrice(model.price) : 'По запросу'}
               </td>
