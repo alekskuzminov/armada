@@ -43,6 +43,24 @@ export default async function DriveCouplingsProductPage({ params }: Props) {
   // Похожие товары (остальные в категории, кроме текущего)
   const related = driveCouplings.filter((p) => p.slug !== slug);
 
+  const ctaBlock = (
+    <div className="mt-6 bg-brand/5 border border-brand/20 rounded-xl p-5">
+      <p className="text-sm font-semibold text-gray-900 mb-1">
+        Нужны точные характеристики?
+      </p>
+      <p className="text-sm text-gray-600 mb-4">
+        Предоставим полный паспорт изделия и актуальные цены по запросу.
+      </p>
+      <a
+        href="#order"
+        className="inline-flex items-center gap-1 text-sm font-medium text-brand hover:underline"
+      >
+        Запросить документацию
+        <i className="ri-arrow-right-line" />
+      </a>
+    </div>
+  );
+
   // JSON-LD Schema.org
   const modelsWithPrices = product.models?.filter((m) => m.price > 0) ?? [];
   const jsonLd = {
@@ -178,6 +196,7 @@ export default async function DriveCouplingsProductPage({ params }: Props) {
                   </tbody>
                 </table>
               </div>
+              {product.slug !== 'uprugie-elementy' && ctaBlock}
             </div>
 
             <div>
@@ -193,22 +212,7 @@ export default async function DriveCouplingsProductPage({ params }: Props) {
               ) : (
                 <p className="text-gray-600 leading-relaxed">{product.application}</p>
               )}
-
-              <div className="mt-6 bg-brand/5 border border-brand/20 rounded-xl p-5">
-                <p className="text-sm font-semibold text-gray-900 mb-1">
-                  Нужны точные характеристики?
-                </p>
-                <p className="text-sm text-gray-600 mb-4">
-                  Предоставим полный паспорт изделия и актуальные цены по запросу.
-                </p>
-                <a
-                  href="#order"
-                  className="inline-flex items-center gap-1 text-sm font-medium text-brand hover:underline"
-                >
-                  Запросить документацию
-                  <i className="ri-arrow-right-line" />
-                </a>
-              </div>
+              {product.slug === 'uprugie-elementy' && ctaBlock}
             </div>
           </div>
         </div>
