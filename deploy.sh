@@ -1,25 +1,36 @@
 #!/bin/bash
-# Деплой на VPS после git push
-# Использование: ./deploy.sh
 
+# Выход при любой ошибке
 set -e
 
-SERVER="root@155.212.141.88"
-SSH_KEY="$HOME/.ssh/id_armada"
-APP_DIR="/var/www/armada"
+echo "🚀 Начинаем деплой Armada..."
 
-echo "=== Pushing to remote ==="
-git push
+# 1. Заходим в директорию проекта
+cd /var/www/armada
 
-echo "=== Deploying to server ==="
-ssh -i "$SSH_KEY" -o StrictHostKeyChecking=no "$SERVER" "
-  cd $APP_DIR &&
-  git pull &&
-  npm ci &&
-  npm run build &&
-  cp -r public .next/standalone/public &&
-  cp -r .next/static .next/standalone/.next/static &&
-  pm2 restart armada
-"
+# Если нужно автоматически подтягивать изменения из git, раскомментируйте строку ниже:
+# echo "📥 Получение обновлений..."
+# git pull
 
-echo "=== Done ==="
+# 2. Установка зависимостей (чистая, по package-lock.json)
+echo "📦 Установка пакетов (npm ci)..."
+npm ci
+
+# 3. Удаление старой сборки (решает проблему с локами .next/lock и кешами)
+echo "🧹 Очистка предыдущей сборки..."
+rm -rf .next
+
+# 4. Сборка проекта
+echo "🏗 Сборка Next.js (production)..."
+npm run build
+
+# 5. Копирование статики для режима standalone
+echo "📂 Подготовка файлов для standalone-сервера..."
+cp -r public .next/standalone/public
+cp -r .next/static .next/standalone/.next/static
+
+# 6. Перезапуск PM2
+echo "🔄 Перезапуск процесса pm2..."
+pm2 restart armada
+
+echo "✅ Деплой успешно завершён!"
