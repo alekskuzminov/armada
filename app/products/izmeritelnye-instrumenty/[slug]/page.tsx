@@ -45,6 +45,26 @@ export default async function MeasuringInstrumentProductPage({ params }: Props) 
 
   // JSON-LD микроразметка Schema.org Product
   const modelsWithPrices = product.models?.filter((m) => m.price > 0) ?? [];
+  const isShtsrt = product.slug.includes('shtsrt');
+
+  const renderExactSpecsBlock = () => (
+    <div className="bg-brand/5 border border-brand/20 rounded-xl p-5 mt-8">
+      <p className="text-sm font-semibold text-gray-900 mb-1">
+        Нужны точные характеристики?
+      </p>
+      <p className="text-sm text-gray-600 mb-4">
+        Предоставим полный паспорт изделия и актуальные цены по запросу.
+      </p>
+      <a
+        href="#order"
+        className="inline-flex items-center gap-1 text-sm font-medium text-brand hover:underline"
+      >
+        Запросить документацию
+        <i className="ri-arrow-right-line" />
+      </a>
+    </div>
+  );
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -174,6 +194,7 @@ export default async function MeasuringInstrumentProductPage({ params }: Props) 
                   </tbody>
                 </table>
               </div>
+              {isShtsrt && renderExactSpecsBlock()}
             </div>
 
             <div>
@@ -190,21 +211,7 @@ export default async function MeasuringInstrumentProductPage({ params }: Props) 
                 <p className="text-gray-600 leading-relaxed">{product.application}</p>
               )}
 
-              <div className="bg-brand/5 border border-brand/20 rounded-xl p-5 mt-8">
-                <p className="text-sm font-semibold text-gray-900 mb-1">
-                  Нужны точные характеристики?
-                </p>
-                <p className="text-sm text-gray-600 mb-4">
-                  Предоставим полный паспорт изделия и актуальные цены по запросу.
-                </p>
-                <a
-                  href="#order"
-                  className="inline-flex items-center gap-1 text-sm font-medium text-brand hover:underline"
-                >
-                  Запросить документацию
-                  <i className="ri-arrow-right-line" />
-                </a>
-              </div>
+              {!isShtsrt && renderExactSpecsBlock()}
             </div>
           </div>
         </div>
