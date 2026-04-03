@@ -76,10 +76,10 @@ export const measuringInstruments: Product[] = [
     ],
     standard: 'ГОСТ 166-89',
     images: [
-      '/images/measuring-instruments/shtsrt-type-1/shzrt-1-type.webp',
-      '/images/measuring-instruments/shtsrt-type-1/shzrt-1-type-1.webp',
-      '/images/measuring-instruments/shtsrt-type-1/shzrt-1-type-2.webp',
-      '/images/measuring-instruments/shtsrt-type-1/shzrt-1-type-3.webp',
+      '/images/measuring-instruments/shtsrt-type-1/shzrt-1-type-v2.webp',
+      '/images/measuring-instruments/shtsrt-type-1/shzrt-1-type-1-v2.webp',
+      '/images/measuring-instruments/shtsrt-type-1/shzrt-1-type-2-v2.webp',
+      '/images/measuring-instruments/shtsrt-type-1/shzrt-1-type-3-v2.webp',
     ],
   },
   {
@@ -113,8 +113,8 @@ export const measuringInstruments: Product[] = [
     ],
     standard: 'ГОСТ 166-89',
     images: [
-      '/images/measuring-instruments/shtsrt-type-2-top/shzrt-2-type-verh-gub.webp',
-      '/images/measuring-instruments/shtsrt-type-2-top/shzrt-2-type-verh-gub-1.webp',
+      '/images/measuring-instruments/shtsrt-type-2-top/shzrt-2-type-verh-gub-v2.webp',
+      '/images/measuring-instruments/shtsrt-type-2-top/shzrt-2-type-verh-gub-1-v2.webp',
     ],
   },
   {
@@ -148,9 +148,9 @@ export const measuringInstruments: Product[] = [
     ],
     standard: 'ГОСТ 166-89',
     images: [
-      '/images/measuring-instruments/shtsrt-type-2-bottom/shzrt-2-type-niizh-gub.webp',
-      '/images/measuring-instruments/shtsrt-type-2-bottom/shzrt-2-type-niizh-gub-1.webp',
-      '/images/measuring-instruments/shtsrt-type-2-bottom/shzrt-2-type-niizh-gub-2.webp',
+      '/images/measuring-instruments/shtsrt-type-2-bottom/shzrt-2-type-niizh-gub-v2.webp',
+      '/images/measuring-instruments/shtsrt-type-2-bottom/shzrt-2-type-niizh-gub-1-v2.webp',
+      '/images/measuring-instruments/shtsrt-type-2-bottom/shzrt-2-type-niizh-gub-2-v2.webp',
     ],
   },
   {
@@ -182,8 +182,8 @@ export const measuringInstruments: Product[] = [
     ],
     standard: 'ГОСТ 166-89',
     images: [
-      '/images/measuring-instruments/shtsrt-type-2-both/shzrt-2-type-nizh-verh-gub.webp',
-      '/images/measuring-instruments/shtsrt-type-2-both/shzrt-2-type-nizh-verh-gub-1.webp',
+      '/images/measuring-instruments/shtsrt-type-2-both/shzrt-2-type-nizh-verh-gub-v2.webp',
+      '/images/measuring-instruments/shtsrt-type-2-both/shzrt-2-type-nizh-verh-gub-1-v2.webp',
     ],
   },
   {
@@ -229,10 +229,10 @@ export const measuringInstruments: Product[] = [
     ],
     standard: 'ГОСТ 166-89',
     images: [
-      '/images/measuring-instruments/shtsrt-type-3/shzrt-3-type.webp',
-      '/images/measuring-instruments/shtsrt-type-3/shzrt-3-type-1.webp',
-      '/images/measuring-instruments/shtsrt-type-3/shzrt-3-type-2.webp',
-      '/images/measuring-instruments/shtsrt-type-3/shzrt-3-type-3.webp',
+      '/images/measuring-instruments/shtsrt-type-3/shzrt-3-type-v2.webp',
+      '/images/measuring-instruments/shtsrt-type-3/shzrt-3-type-1-v2.webp',
+      '/images/measuring-instruments/shtsrt-type-3/shzrt-3-type-2-v2.webp',
+      '/images/measuring-instruments/shtsrt-type-3/shzrt-3-type-3-v2.webp',
     ],
   },
   {

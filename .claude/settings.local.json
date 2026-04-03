@@ -14,7 +14,12 @@
       "Bash(cat /c/Users/User/Desktop/armada/app/products/izmeri*telnye-instrumenty/page.tsx)",
       "Bash(cat /c/Users/User/Desktop/armada/app/products/izmeri*telnye-instrumenty/[slug]/page.tsx)",
       "Bash(sed -n '60,150p' \"/c/Users/User/Desktop/armada/app/products/izmeri­telnye-instrumenty/[slug]/page.tsx\")",
-      "Bash(sed -n '60,150p' /c/Users/User/Desktop/armada/app/products/izmeri?telnye-instrumenty/[slug]/page.tsx)"
+      "Bash(sed -n '60,150p' /c/Users/User/Desktop/armada/app/products/izmeri?telnye-instrumenty/[slug]/page.tsx)",
+      "Bash(mv shtsrt-type-1/shzrt-1-type.webp shtsrt-type-1/shzrt-1-type-v2.webp)",
+      "Bash(mv shtsrt-type-1/shzrt-1-type-1.webp shtsrt-type-1/shzrt-1-type-1-v2.webp)",
+      "Bash(mv shtsrt-type-1/shzrt-1-type-2.webp shtsrt-type-1/shzrt-1-type-2-v2.webp)",
+      "Bash(mv shtsrt-type-1/shzrt-1-type-3.webp shtsrt-type-1/shzrt-1-type-3-v2.webp)",
+      "Bash(mv shtsrt-type-2-top/shzrt-2-type-verh-gub.webp shtsrt-type-2-top/shzrt-2-type-verh-gub-v2.webp)"
     ]
   }
 }
